@@ -67,6 +67,26 @@
    - Code style enforcement
    - Automatic formatting
 
+### Documentation
+
+1. **Markdown**
+
+   - Primary documentation format
+   - Used for implementation documentation
+   - Code-mirroring structure for easy navigation
+
+2. **Structured Documentation**
+
+   - Each implementation file has a corresponding documentation file
+   - Function signatures, parameters, and return types documented
+   - Examples and edge cases included
+   - Implementation notes and integration details
+
+3. **Documentation Tools**
+   - Potential integration with MkDocs for generating static documentation site
+   - GitHub-friendly Markdown formatting
+   - Code snippets with syntax highlighting
+
 ### CI/CD & Deployment
 
 1. **GitHub Actions**
@@ -74,6 +94,7 @@
    - Continuous integration
    - Automated testing
    - Deployment pipelines
+   - Documentation validation
 
 2. **Serverless Framework**
 
@@ -147,6 +168,18 @@ vnstock-api/
 │       └── database/        # Database connections
 │           ├── supabase.py  # Supabase client
 │           └── ...          # Other database related
+├── docs/                    # Documentation
+│   ├── implementation/      # Implementation documentation (mirrors app structure)
+│   │   ├── api/             # API documentation
+│   │   │   ├── rest/        # REST API documentation
+│   │   │   └── graphql/     # GraphQL documentation
+│   │   ├── core/            # Core functionality documentation
+│   │   ├── services/        # Services documentation
+│   │   ├── adapters/        # Adapters documentation
+│   │   ├── repositories/    # Repositories documentation
+│   │   ├── models/          # Models documentation
+│   │   └── infrastructure/  # Infrastructure documentation
+│   └── guides/              # User and developer guides
 ├── functions/               # Serverless function handlers
 │   ├── api_handler.py       # Main API handler
 │   ├── background_jobs.py   # Background processing
@@ -225,10 +258,17 @@ make dev
    - Cache optimization
 
 5. **Serverless Constraints**
+
    - Function timeout limits
    - Memory limitations
    - Cold start considerations
    - State management
+
+6. **Documentation Requirements**
+   - Each implementation file must have a corresponding documentation file
+   - Documentation must be updated with code changes
+   - All functions must be documented with parameters, return types, and examples
+   - Documentation structure must mirror application structure
 
 ## Dependencies
 
@@ -263,6 +303,7 @@ isort = "^5.12.0"
 docker-compose = "^1.29.2"
 serverless = "^3.34.0"
 terraform-local = "^0.0.1"
+mkdocs = "^1.5.3"  # Optional for generating documentation site
 ```
 
 ## Third-Party Integrations
@@ -324,14 +365,20 @@ terraform-local = "^0.0.1"
    - Run unit tests with pytest
    - Integration tests using local serverless emulator
 
-3. **Deployment**
+3. **Documentation**
+
+   - Update documentation files as implementation files are created/modified
+   - Each implementation file (.py) has a corresponding documentation file (.md)
+   - Documentation follows a standardized template with function descriptions, parameters, and examples
+
+4. **Deployment**
 
    - CI/CD pipeline with GitHub Actions
    - Infrastructure provisioning with Terraform/CDK
    - Deployment using Serverless Framework
    - Staged deployments (dev, staging, production)
 
-4. **Monitoring**
+5. **Monitoring**
    - CloudWatch Logs or equivalent
    - Serverless metrics dashboard
    - Sentry for error tracking

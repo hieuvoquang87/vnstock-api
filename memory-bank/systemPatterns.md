@@ -62,6 +62,13 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
    - Infrastructure as Code (IaC) using Terraform/AWS CDK
    - Separate functions for high-load operations
 
+7. **Documentation Strategy**: Code-Mirroring Documentation
+
+   - Markdown documentation files that mirror the application structure
+   - Each implementation file has an equivalent documentation file
+   - Detailed function documentation with explanations, parameters, and examples
+   - Living documentation that evolves with the code
+
 ## Design Patterns in Use
 
 1. **Repository Pattern**
@@ -182,6 +189,22 @@ vnstock-api/
 │       └── database/        # Database connections
 │           ├── supabase.py  # Supabase client
 │           └── ...          # Other database related
+├── docs/                    # Documentation
+│   ├── implementation/      # Implementation documentation
+│   │   ├── api/             # API documentation
+│   │   │   ├── rest/        # REST API documentation
+│   │   │   │   ├── v1/      # API v1 documentation
+│   │   │   │   │   ├── stocks/ # Stock endpoints documentation
+│   │   │   │   │   └── market/ # Market endpoints documentation
+│   │   │   └── graphql/     # GraphQL documentation
+│   │   │       └── resolvers/ # Resolvers documentation
+│   │   ├── core/            # Core functionality documentation
+│   │   ├── services/        # Services documentation
+│   │   ├── adapters/        # Adapters documentation
+│   │   ├── repositories/    # Repositories documentation
+│   │   ├── models/          # Models documentation
+│   │   └── infrastructure/  # Infrastructure documentation
+│   └── guides/              # User and developer guides
 ├── functions/               # Serverless function handlers
 │   ├── api_handler.py       # Main API handler
 │   ├── background_jobs.py   # Background processing
@@ -232,6 +255,27 @@ vnstock-api/
 4. **Serverless Testing**
    - Local serverless environment testing
    - Cloud-based testing in staging environment
+
+## Documentation Strategy
+
+1. **Implementation Documentation**
+
+   - Mirror the application structure in `docs/implementation/`
+   - Each implementation file (`.py`) has a corresponding documentation file (`.md`)
+   - Document all functions, classes, and methods with parameters, return types, and examples
+   - Keep documentation synchronized with code changes
+
+2. **Documentation Format**
+
+   - Function descriptions in Markdown format
+   - Parameter and return type documentation
+   - Usage examples and edge cases
+   - Integration notes where applicable
+
+3. **Documentation Maintenance**
+   - Update documentation with each code change
+   - Review documentation during code reviews
+   - Automate documentation checks in CI pipeline
 
 ## Serverless Considerations
 

@@ -10,6 +10,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - Creating the Memory Bank structure
    - Setting up the basic repository structure
    - Defining detailed file and folder organization
+   - Creating implementation documentation structure
 
 2. **Initial Planning**
 
@@ -17,12 +18,14 @@ The project is currently in the planning phase, focused on establishing the foun
    - Planning the architecture and component design
    - Establishing development phases and milestones
    - Designing for serverless deployment
+   - Designing documentation strategy
 
 3. **Requirements Analysis**
    - Understanding the vnstock library functionality
    - Identifying key API endpoints to implement
    - Defining authentication and security requirements
    - Planning for external managed services integration
+   - Determining implementation documentation templates
 
 ## Recent Changes
 
@@ -34,6 +37,8 @@ The project is currently in the planning phase, focused on establishing the foun
 - Updated to require Python 3.12
 - Changed deployment strategy to serverless
 - Added requirements for OpenAPI UI and GraphQL Explorer
+- Created docs/implementation folder structure mirroring app structure
+- Added documentation approach requiring corresponding .md files for each implementation file
 
 ## Next Steps
 
@@ -45,6 +50,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - Set up Makefile with common commands
    - Create basic directory structure following the defined file organization
    - Set up serverless.yml configuration
+   - Create documentation template for implementation files
 
 2. **Environment Configuration**
 
@@ -52,6 +58,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - Configure linting and code formatting
    - Create sample environment variables file
    - Set up local development with Docker
+   - Create documentation structure and initial templates
 
 3. **Initial Code Implementation**
    - Create FastAPI application skeleton
@@ -59,6 +66,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - Implement basic health check endpoint
    - Set up testing framework
    - Configure serverless handler (Mangum)
+   - Create corresponding documentation files for initial implementation
 
 ### Short-term (Phase 1 MVP Implementation)
 
@@ -68,6 +76,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - Implement first REST endpoints
    - Set up OpenAPI documentation with interactive examples
    - Ensure compatibility with serverless deployment
+   - Document all implemented functions and endpoints
 
 2. **Testing Strategy**
 
@@ -75,12 +84,14 @@ The project is currently in the planning phase, focused on establishing the foun
    - Implement integration tests for API endpoints
    - Configure test coverage reporting
    - Add serverless-specific tests
+   - Document testing approach and patterns
 
 3. **CI/CD Pipeline**
    - Set up GitHub Actions workflow
    - Configure automated testing
    - Set up code quality checks
    - Add serverless deployment pipeline
+   - Add documentation validation checks
 
 ### Medium-term (Phase 2-3 Planning)
 
@@ -90,12 +101,14 @@ The project is currently in the planning phase, focused on establishing the foun
    - Plan resolver implementation
    - Design type system
    - Plan GraphQL Explorer integration
+   - Create documentation templates for GraphQL components
 
 2. **External Services Integration**
    - Design Redis Cloud integration
    - Plan Supabase integration
    - Define infrastructure as code
    - Design cache invalidation strategy
+   - Document integration patterns and configurations
 
 ## Active Decisions and Considerations
 
@@ -105,6 +118,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - How to structure the OpenAPI documentation for best user experience?
    - What authentication mechanism should be used for the MVP?
    - How to handle rate limiting in the initial implementation?
+   - What documentation template should be used for implementation files?
 
 2. **Technical Considerations**
 
@@ -113,13 +127,15 @@ The project is currently in the planning phase, focused on establishing the foun
    - How to handle long-running operations in a serverless environment?
    - What error handling strategy should be used?
    - How to structure the project for optimal serverless deployment?
+   - How to ensure documentation stays synchronized with code?
 
 3. **Open Questions**
    - What is the expected load and traffic pattern?
    - Are there any specific performance benchmarks to target?
    - How frequently does the vnstock library update, and how to handle versioning?
    - What are the cost implications of the serverless approach?
+   - Should documentation generation be automated or manual?
 
 ## Current Development Phase
 
-The project is currently in **Phase 0: Planning and Setup** before beginning the implementation of Phase 1 (MVP). The focus is on establishing a solid foundation and clear direction for the project, with particular attention to serverless architecture and managed services integration.
+The project is currently in **Phase 0: Planning and Setup** before beginning the implementation of Phase 1 (MVP). The focus is on establishing a solid foundation and clear direction for the project, with particular attention to serverless architecture, managed services integration, and comprehensive documentation practices.
