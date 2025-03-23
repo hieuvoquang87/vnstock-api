@@ -13,26 +13,28 @@ This project aims to create a robust API service that exposes the functionality 
 - **API Key Authentication**: Track usage and implement rate limiting
 - **Caching**: Redis-based caching for frequently accessed data
 - **Data Persistence**: Historical data stored in Supabase/PostgreSQL
-- **Documentation**: Comprehensive OpenAPI documentation
+- **Documentation**: Comprehensive OpenAPI documentation and GraphQL Explorer
 - **High Test Coverage**: Maintaining >85% code coverage
+- **Serverless Deployment**: Optimized for serverless environments with external managed services
 
 ## Project Phases
 
 ### Phase 1: MVP (Current Focus)
 
 - Implementation of REST API endpoints exposing vnstock functionality
-- OpenAPI documentation
+- OpenAPI documentation and interactive UI
 - Testing with >85% code coverage
 
 ### Phase 2: Expansion
 
 - GraphQL API implementation
 - Schema design and resolvers
+- GraphQL Explorer for interactive queries
 - GraphQL documentation
 
 ### Phase 3: Performance Optimization
 
-- Redis integration for caching frequently accessed data
+- External Redis service integration for caching frequently accessed data
 - Supabase/PostgreSQL for historical data persistence
 - Query optimization
 
@@ -50,22 +52,23 @@ This project aims to create a robust API service that exposes the functionality 
 
 ## Tech Stack
 
-- **Python**: Core programming language
+- **Python**: Core programming language (Python 3.12 required)
 - **Poetry**: Dependency management
 - **FastAPI**: API framework
-- **GraphQL**: Query language and runtime
-- **Supabase/PostgreSQL**: Database for persistence
-- **Redis**: Caching layer
+- **Strawberry GraphQL**: GraphQL implementation
+- **Supabase/PostgreSQL**: Database-as-a-service for persistence
+- **Redis Cloud**: Cache-as-a-service
 - **Pytest**: Testing framework
 - **Makefile**: Command management
+- **Serverless Framework/AWS Lambda**: Serverless deployment
 
 ## Getting Started
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.12+
 - Poetry
-- Docker (optional, for containerization)
+- Docker (optional, for local development)
 
 ### Installation
 
@@ -83,7 +86,10 @@ make dev
 
 ## Documentation
 
-API documentation is available at `/docs` (Swagger UI) or `/redoc` (ReDoc) when the server is running.
+API documentation is available at:
+
+- REST API: `/docs` (Swagger UI) or `/redoc` (ReDoc) when the server is running
+- GraphQL API: `/graphql` for GraphQL Explorer interface
 
 ## License
 

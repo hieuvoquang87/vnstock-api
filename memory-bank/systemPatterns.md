@@ -43,20 +43,24 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
    - Simple header-based authentication (X-API-Key)
    - Future expansion to support OAuth for enterprise integrations
 
-4. **Caching Strategy**: Two-tiered
+4. **Caching Strategy**: External Managed Service
 
-   - In-memory cache for very high-frequency data
-   - Redis for distributed caching across instances
+   - Redis Cloud for distributed caching across instances
    - Time-based expiration depending on data volatility
+   - Optimize for serverless environment
 
-5. **Database Strategy**: Hybrid
+5. **Database Strategy**: Managed Service
 
-   - Supabase/PostgreSQL for persistent storage
+   - Supabase/PostgreSQL as Database-as-a-Service
    - Separate tables for historical data vs. operational data
+   - Connection pooling optimized for serverless
 
-6. **Deployment Model**: Containerized Microservices
-   - Separate services for REST API, GraphQL, Authentication, and Data Processing
-   - Kubernetes orchestration for production
+6. **Deployment Model**: Serverless
+
+   - AWS Lambda functions or similar serverless platform
+   - API Gateway for routing and management
+   - Infrastructure as Code (IaC) using Terraform/AWS CDK
+   - Separate functions for high-load operations
 
 ## Design Patterns in Use
 
@@ -130,6 +134,84 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
                                 └──────────┘    └──────────┘
 ```
 
+## File Structure
+
+```
+vnstock-api/
+├── .github/                 # GitHub Actions workflows
+│   └── workflows/           # CI/CD workflow definitions
+├── app/                     # Main application package
+│   ├── api/                 # API routes and handlers
+│   │   ├── rest/            # REST API endpoints
+│   │   │   ├── v1/          # API version 1
+│   │   │   │   ├── stocks/  # Stock-related endpoints
+│   │   │   │   ├── market/  # Market-related endpoints
+│   │   │   │   └── ...      # Other resource endpoints
+│   │   │   └── __init__.py  # REST API package initialization
+│   │   └── graphql/         # GraphQL schema and resolvers
+│   │       ├── resolvers/   # GraphQL resolvers
+│   │       ├── schema.py    # GraphQL schema definition
+│   │       └── __init__.py  # GraphQL package initialization
+│   ├── core/                # Core functionality
+│   │   ├── config.py        # Configuration settings
+│   │   ├── exceptions.py    # Custom exceptions
+│   │   └── logging.py       # Logging configuration
+│   ├── services/            # Business logic layer
+│   │   ├── stock_service.py # Stock-related business logic
+│   │   ├── market_service.py# Market-related business logic
+│   │   ├── cache_service.py # Caching service
+│   │   └── ...              # Other services
+│   ├── adapters/            # Integration with vnstock
+│   │   ├── vnstock_adapter.py # Main adapter for vnstock
+│   │   └── ...              # Other adapters
+│   ├── repositories/        # Data access layer
+│   │   ├── stock_repo.py    # Stock data repository
+│   │   ├── user_repo.py     # User data repository
+│   │   └── ...              # Other repositories
+│   ├── models/              # Data models (Pydantic)
+│   │   ├── domain/          # Domain models
+│   │   ├── schemas/         # Request/Response schemas
+│   │   └── entities/        # Database entities
+│   └── infrastructure/      # Infrastructure components
+│       ├── auth/            # Authentication
+│       │   ├── api_key.py   # API key handling
+│       │   └── ...          # Other auth related
+│       ├── cache/           # Caching
+│       │   ├── redis.py     # Redis client
+│       │   └── ...          # Other cache related
+│       └── database/        # Database connections
+│           ├── supabase.py  # Supabase client
+│           └── ...          # Other database related
+├── functions/               # Serverless function handlers
+│   ├── api_handler.py       # Main API handler
+│   ├── background_jobs.py   # Background processing
+│   └── ...                  # Other function handlers
+├── tests/                   # Test suite
+│   ├── unit/                # Unit tests
+│   │   ├── api/             # API tests
+│   │   ├── services/        # Service tests
+│   │   └── ...              # Other unit tests
+│   ├── integration/         # Integration tests
+│   │   ├── api/             # API integration tests
+│   │   └── ...              # Other integration tests
+│   └── conftest.py          # Test configuration
+├── scripts/                 # Utility scripts
+│   ├── deploy.sh            # Deployment script
+│   └── ...                  # Other scripts
+├── infrastructure/          # Infrastructure as Code
+│   ├── terraform/           # Terraform configurations
+│   │   ├── main.tf          # Main Terraform configuration
+│   │   └── ...              # Other Terraform files
+│   └── ...                  # Other IaC solutions
+├── Dockerfile               # Docker configuration for local dev
+├── docker-compose.yml       # Docker Compose for local services
+├── Makefile                 # Command shortcuts
+├── pyproject.toml           # Poetry configuration
+├── README.md                # Project documentation
+├── serverless.yml           # Serverless Framework configuration
+└── .env.example             # Example environment variables
+```
+
 ## Testing Strategy
 
 1. **Unit Testing**
@@ -143,5 +225,29 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
    - Test caching behavior
 
 3. **End-to-End Testing**
+
    - Full API tests with real vnstock integration
    - Performance and load testing
+
+4. **Serverless Testing**
+   - Local serverless environment testing
+   - Cloud-based testing in staging environment
+
+## Serverless Considerations
+
+1. **Cold Start Optimization**
+
+   - Keep dependencies minimal
+   - Use lazy loading where appropriate
+   - Optimize initialization code
+
+2. **Statelessness**
+
+   - Design functions to be stateless
+   - Use external services for state management
+   - Share common code through layers
+
+3. **Function Sizing**
+   - Break complex operations into smaller functions
+   - Balance function size vs. cold start time
+   - Consider provisioned concurrency for critical paths

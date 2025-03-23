@@ -12,10 +12,13 @@ This is an API wrapper for the vnstock Python library, providing both REST and G
 - GraphQL schema should mirror the structure of vnstock functions
 - All API responses should be JSON-formatted
 - Error handling should follow RFC 7807 (Problem Details for HTTP APIs)
+- Expose OpenAPI documentation UI at `/docs` and `/redoc`
+- Provide GraphQL Explorer interface at `/graphql`
 
 ### Code Style and Patterns
 
 - Follow PEP 8 standards for Python code
+- Use Python 3.12 features where appropriate
 - Use type hints throughout the codebase
 - Prefer async functions for I/O operations
 - Use dependency injection pattern for services
@@ -27,8 +30,35 @@ This is an API wrapper for the vnstock Python library, providing both REST and G
 - Mock external services in unit tests
 - Use pytest for all testing
 - Include integration tests for API endpoints
+- Add serverless-specific tests for Lambda functions
+
+### Deployment
+
+- Optimize for serverless deployment (AWS Lambda or similar)
+- Use external managed services for storage and caching
+- Configure for minimal cold start times
+- Use infrastructure as code for deployment
 
 ## Project-Specific Patterns
+
+### File Structure
+
+Follow the defined file structure pattern:
+
+```
+app/
+├── api/                 # API routes and handlers
+│   ├── rest/            # REST API endpoints
+│   │   ├── v1/          # API version 1
+│   │   │   ├── stocks/  # Stock-related endpoints
+│   │   │   ├── market/  # Market-related endpoints
+│   └── graphql/         # GraphQL schema and resolvers
+├── services/            # Business logic layer
+├── adapters/            # Integration with vnstock
+├── repositories/        # Data access layer
+├── models/              # Data models (Pydantic)
+└── infrastructure/      # Infrastructure components
+```
 
 ### Response Format
 
@@ -64,13 +94,21 @@ Errors should be returned with appropriate HTTP status codes and details:
 - All modules should have docstrings
 - All API endpoints should have OpenAPI documentation
 - Examples should be included for each endpoint
+- GraphQL should have proper schema documentation
 
 ## Development Workflow
 
 1. Always update the Memory Bank after significant changes
-2. Use Poetry for dependency management
+2. Use Poetry for dependency management with Python 3.12
 3. Follow the established project phases in order
 4. Write tests before implementing features
+5. Use Docker for local development environment
+
+## External Services
+
+1. Redis Cloud for caching and rate limiting
+2. Supabase/PostgreSQL for data persistence
+3. AWS Lambda/API Gateway for serverless hosting
 
 ## TODO List
 
@@ -80,3 +118,6 @@ This is a running list of todo items discovered during development:
 - Design initial REST API endpoints
 - Set up project structure
 - Add authentication mechanism
+- Configure serverless deployment
+- Implement OpenAPI and GraphQL Explorer interfaces
+- Optimize for Python 3.12
