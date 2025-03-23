@@ -1,0 +1,82 @@
+# vnstock-api Project Rules
+
+## Project Overview
+
+This is an API wrapper for the vnstock Python library, providing both REST and GraphQL interfaces for Vietnamese stock market data. The project includes authentication, rate limiting, and comprehensive documentation.
+
+## Critical Implementation Paths
+
+### API Development
+
+- REST endpoints should follow resource-based naming (e.g., `/stocks/{symbol}/price`)
+- GraphQL schema should mirror the structure of vnstock functions
+- All API responses should be JSON-formatted
+- Error handling should follow RFC 7807 (Problem Details for HTTP APIs)
+
+### Code Style and Patterns
+
+- Follow PEP 8 standards for Python code
+- Use type hints throughout the codebase
+- Prefer async functions for I/O operations
+- Use dependency injection pattern for services
+- Organize code with clear layering (controllers -> services -> adapters)
+
+### Testing
+
+- Maintain >85% code coverage
+- Mock external services in unit tests
+- Use pytest for all testing
+- Include integration tests for API endpoints
+
+## Project-Specific Patterns
+
+### Response Format
+
+All REST API responses should follow this standard format:
+
+```json
+{
+  "data": {}, // The actual response data
+  "meta": {
+    // Metadata about the response
+    "timestamp": "ISO timestamp",
+    "version": "API version"
+  }
+}
+```
+
+### Error Handling
+
+Errors should be returned with appropriate HTTP status codes and details:
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable message",
+    "details": {} // Optional additional information
+  }
+}
+```
+
+### Documentation
+
+- All modules should have docstrings
+- All API endpoints should have OpenAPI documentation
+- Examples should be included for each endpoint
+
+## Development Workflow
+
+1. Always update the Memory Bank after significant changes
+2. Use Poetry for dependency management
+3. Follow the established project phases in order
+4. Write tests before implementing features
+
+## TODO List
+
+This is a running list of todo items discovered during development:
+
+- Research vnstock library capabilities
+- Design initial REST API endpoints
+- Set up project structure
+- Add authentication mechanism
