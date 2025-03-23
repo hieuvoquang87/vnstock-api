@@ -1,0 +1,1 @@
+"""Core module containing configuration, exceptions, and shared utilities.""" 

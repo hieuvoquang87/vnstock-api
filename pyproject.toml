@@ -1,16 +1,88 @@
-[project]
+[tool.poetry]
 name = "vnstock-api"
 version = "0.1.0"
 description = "API wrapper for vnstock library providing both REST and GraphQL APIs"
-authors = [
-    {name = "Your Name",email = "your.email@example.com"}
-]
+authors = ["Your Name <your.email@example.com>"]
 readme = "README.md"
-requires-python = "^3.9"
-dependencies = [
-]
+packages = [{include = "app"}]
 
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+fastapi = ">=0.115.11,<0.116.0"
+uvicorn = ">=0.34.0,<0.35.0"
+pydantic = ">=2.10.6,<3.0.0"
+httpx = ">=0.28.1,<0.29.0"
+pytest = ">=8.3.5,<9.0.0"
+python-dotenv = ">=1.0.1,<2.0.0"
+redis = ">=5.2.1,<6.0.0"
+mangum = ">=0.19.0,<0.20.0"
+strawberry-graphql = ">=0.262.5,<0.263.0"
+pydantic-settings = ">=2.8.1,<3.0.0"
+vnstock = "3.2.1"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.2"
+mypy = "^1.15.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+pytest-cov = "^6.0.0"
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py312']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+
+[tool.mypy]
+python_version = "3.12"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unused_configs = true
+plugins = [
+    "pydantic.mypy"
+]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+python_classes = "Test*"
+addopts = "--cov=app --cov-report=term-missing --cov-report=xml --cov-report=html"
+
