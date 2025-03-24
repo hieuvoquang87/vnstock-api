@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app/main.py"
+    }
+  ],
+  "env": {
+    "REDIS_HOST": "",
+    "REDIS_PORT": "6379",
+    "REDIS_PASSWORD": "",
+    "CACHE_ENABLED": "true",
+    "CACHE_DEFAULT_TIMEOUT": "3600",
+    "SUPABASE_URL": "",
+    "SUPABASE_KEY": "",
+    "RATE_LIMIT_PER_MIN": "60",
+    "DEBUG": "false"
+  }
+}
