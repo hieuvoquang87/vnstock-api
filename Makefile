@@ -4,7 +4,7 @@
 setup:
 	poetry install
 	poetry env activate
-	poetry export -f requirements.txt --output requirements.txt --without-hashes --without dev
+	poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 # Run development server
 dev:

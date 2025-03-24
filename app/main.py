@@ -1,7 +1,5 @@
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 
 # Create FastAPI app
 app = FastAPI(
@@ -32,8 +30,6 @@ async def root():
         "documentation": "/docs",
     }
 
-# Handler for serverless deployment
-handler = Mangum(app)
 
 # Include routers
 # Example: app.include_router(stocks_router, prefix="/api/v1/stocks", tags=["Stocks"])

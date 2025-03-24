@@ -14,12 +14,8 @@ python = ">=3.10,<4.0"
 fastapi = ">=0.115.11,<0.116.0"
 uvicorn = ">=0.34.0,<0.35.0"
 pydantic = ">=2.10.6,<3.0.0"
-httpx = ">=0.28.1,<0.29.0"
-pytest = ">=8.3.5,<9.0.0"
 python-dotenv = ">=1.0.1,<2.0.0"
 redis = ">=5.2.1,<6.0.0"
-mangum = ">=0.19.0,<0.20.0"
-strawberry-graphql = ">=0.262.5,<0.263.0"
 pydantic-settings = ">=2.8.1,<3.0.0"
 vnstock = "3.2.1"
 
@@ -28,7 +24,10 @@ flake8 = "^7.1.2"
 mypy = "^1.15.0"
 black = "^25.1.0"
 isort = "^6.0.1"
+pytest = ">=8.3.5,<9.0.0"
 pytest-cov = "^6.0.0"
+httpx = ">=0.28.1,<0.29.0"
+strawberry-graphql = ">=0.262.5,<0.263.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0"]
