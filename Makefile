@@ -40,7 +40,7 @@ prod:
 
 # Create application directories
 dirs:
-	mkdir -p app/{api/{rest/v1/{stocks,market},graphql/resolvers},services,adapters,repositories,models/{domain,schemas,entities},infrastructure/{auth,cache,database}}
+	mkdir -p app/{api/{rest/v1/{stocks,market},graphql/resolvers},services,datasources,repositories,models/{domain,schemas,entities},infrastructure/{auth,cache,database}}
 	mkdir -p tests/{unit,integration}
 	touch app/__init__.py
 	touch app/api/__init__.py

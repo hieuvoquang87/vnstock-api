@@ -118,9 +118,9 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
 
 3. **Data Access Layer**
 
-   - vnstock adapters: `adapters/`
+   - Data sources: `datasources/`
    - Database repositories: `repositories/`
-   - Responsibilities: Data retrieval, persistence
+   - Responsibilities: Data retrieval, persistence, and external system integration
 
 4. **Infrastructure Layer**
    - Authentication: `infrastructure/auth/`
@@ -132,13 +132,14 @@ The `vnstock-api` follows a layered architecture pattern to ensure separation of
 
 ```
 ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  Client  │─►  │Controller│─►  │ Service  │─►  │ Adapter  │
+│  Client  │─►  │Controller│─►  │ Service  │─►  │DataSource│
 └──────────┘    └──────────┘    └──────────┘    └──────────┘
                       ▲               │               │
                       │               ▼               ▼
                       │         ┌──────────┐    ┌──────────┐
-                      └─────────│  Cache   │    │ vnstock  │
-                                └──────────┘    └──────────┘
+                      └─────────│  Cache   │    │ External │
+                                └──────────┘    │  Systems │
+                                               └──────────┘
 ```
 
 ## File Structure
@@ -168,9 +169,11 @@ vnstock-api/
 │   │   ├── market_service.py# Market-related business logic
 │   │   ├── cache_service.py # Caching service
 │   │   └── ...              # Other services
-│   ├── adapters/            # Integration with vnstock
-│   │   ├── vnstock_adapter.py # Main adapter for vnstock
-│   │   └── ...              # Other adapters
+│   ├── datasources/         # External data source integrations
+│   │   ├── vnstock_adapter.py # Adapter for vnstock library
+│   │   ├── external_api/    # External API integrations
+│   │   ├── database/        # Database abstractions
+│   │   └── realtime/        # Real-time data sources
 │   ├── repositories/        # Data access layer
 │   │   ├── stock_repo.py    # Stock data repository
 │   │   ├── user_repo.py     # User data repository
@@ -200,7 +203,7 @@ vnstock-api/
 │   │   │       └── resolvers/ # Resolvers documentation
 │   │   ├── core/            # Core functionality documentation
 │   │   ├── services/        # Services documentation
-│   │   ├── adapters/        # Adapters documentation
+│   │   ├── datasources/     # Data sources documentation
 │   │   ├── repositories/    # Repositories documentation
 │   │   ├── models/          # Models documentation
 │   │   └── infrastructure/  # Infrastructure documentation

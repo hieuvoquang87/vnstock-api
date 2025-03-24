@@ -1702,6 +1702,22 @@ quart = ["quart (>=0.19.3)"]
 sanic = ["sanic (>=20.12.2)"]
 
 [[package]]
+name = "tenacity"
+version = "9.0.0"
+description = "Retry code until it succeeds"
+optional = false
+python-versions = ">=3.8"
+groups = ["main"]
+files = [
+    {file = "tenacity-9.0.0-py3-none-any.whl", hash = "sha256:93de0c98785b27fcf659856aa9f54bfbd399e29969b0621bc7f762bd441b4539"},
+    {file = "tenacity-9.0.0.tar.gz", hash = "sha256:807f37ca97d62aa361264d497b0e31e92b8027044942bfa756160d908320d73b"},
+]
+
+[package.extras]
+doc = ["reno", "sphinx"]
+test = ["pytest", "tornado (>=4.5)", "typeguard"]
+
+[[package]]
 name = "tomli"
 version = "2.2.1"
 description = "A lil' TOML parser"
@@ -1964,4 +1980,4 @@ pillow = "*"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "846bf81a7da898e9a4d53dd556c7f9599302397c13b361451300c3ec25c3754d"
+content-hash = "f01e74abc4044cc8a956644947a8f322cab9676a2c369cd7fcdb7062f9614bea"

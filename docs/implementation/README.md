@@ -24,7 +24,7 @@ docs/implementation/            app/
 │   │       └── market/         │   │       └── market/
 │   └── graphql/                │   └── graphql/
 ├── services/                   ├── services/
-├── adapters/                   ├── adapters/
+├── datasources/                ├── datasources/
 ├── repositories/               ├── repositories/
 ├── models/                     ├── models/
 └── infrastructure/             └── infrastructure/

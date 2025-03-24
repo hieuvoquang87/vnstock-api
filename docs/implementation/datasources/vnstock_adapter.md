@@ -2,7 +2,17 @@
 
 ## Overview
 
-This module provides adapter functions that interface with the vnstock library. It wraps the original library functions with standardized error handling, response formatting, and caching support.
+This module is part of the `datasources` layer which abstracts all external data interactions in the application. The `datasources` directory contains modules for various data sources, including but not limited to:
+
+1. VNStock library integrations
+2. External financial APIs
+3. Market data providers
+4. News and information services
+5. Database abstractions
+6. Websocket data streams
+7. File-based data imports
+
+This specific module provides adapter functions that interface with the vnstock library. It wraps the original library functions with standardized error handling, response formatting, and caching support.
 
 ## Functions
 
@@ -44,7 +54,7 @@ Dictionary containing stock price data with the following structure:
 **Example:**
 
 ```python
-from app.adapters.vnstock_adapter import get_stock_price
+from app.datasources.vnstock_adapter import get_stock_price
 
 # Get stock price for VNM from 2023-01-01 to 2023-01-31
 price_data = get_stock_price("VNM", "2023-01-01", "2023-01-31")
@@ -94,7 +104,7 @@ Dictionary containing company information with the following structure:
 **Example:**
 
 ```python
-from app.adapters.vnstock_adapter import get_stock_info
+from app.datasources.vnstock_adapter import get_stock_info
 
 # Get information for VNM
 stock_info = get_stock_info("VNM")
@@ -143,7 +153,7 @@ Dictionary containing market overview data with the following structure:
 **Example:**
 
 ```python
-from app.adapters.vnstock_adapter import get_market_overview
+from app.datasources.vnstock_adapter import get_market_overview
 
 # Get current market overview
 market_data = get_market_overview()
@@ -172,7 +182,7 @@ Class-based interface to the vnstock library that maintains session information 
 **Example:**
 
 ```python
-from app.adapters.vnstock_adapter import VnstockAdapter
+from app.datasources.vnstock_adapter import VnstockAdapter
 from app.services.cache_service import CacheService
 
 cache_service = CacheService()

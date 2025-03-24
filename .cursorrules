@@ -22,7 +22,7 @@ This is an API wrapper for the vnstock Python library, providing both REST and G
 - Use type hints throughout the codebase
 - Prefer async functions for I/O operations
 - Use dependency injection pattern for services
-- Organize code with clear layering (controllers -> services -> adapters)
+- Organize code with clear layering (controllers -> services -> datasources)
 
 ### Testing
 
@@ -63,7 +63,7 @@ app/
 │   │   │   ├── market/  # Market-related endpoints
 │   └── graphql/         # GraphQL schema and resolvers
 ├── services/            # Business logic layer
-├── adapters/            # Integration with vnstock
+├── datasources/         # External data source integrations (vnstock, APIs, databases)
 ├── repositories/        # Data access layer
 ├── models/              # Data models (Pydantic)
 └── infrastructure/      # Infrastructure components
@@ -83,7 +83,7 @@ docs/
     │   │   │   └── market/ # Market endpoints documentation
     │   └── graphql/     # GraphQL documentation
     ├── services/        # Services documentation
-    ├── adapters/        # Adapters documentation
+    ├── datasources/     # Data sources documentation
     ├── repositories/    # Repositories documentation
     ├── models/          # Models documentation
     └── infrastructure/  # Infrastructure documentation
@@ -170,7 +170,7 @@ Errors should be returned with appropriate HTTP status codes and details:
 
 1. Redis Cloud for caching and rate limiting
 2. Supabase/PostgreSQL for data persistence
-3. AWS Lambda/API Gateway for serverless hosting
+3. Vercel for serverless hosting
 
 ## TODO List
 
@@ -180,7 +180,7 @@ This is a running list of todo items discovered during development:
 - Design initial REST API endpoints
 - Set up project structure
 - Add authentication mechanism
-- Configure serverless deployment
+- Configure Vercel deployment
 - Implement OpenAPI and GraphQL Explorer interfaces
 - Optimize for Python 3.12
 - Create documentation template for implementation files
