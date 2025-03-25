@@ -63,24 +63,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_shareholders(self, symbol: str) -> List[Dict]:
         """Get major shareholders information from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.shareholders(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            return [
-                {
-                    "no": 1,
-                    "ticker": "VINACAPITAL",  # Different data from VCI
-                    "name": "VinaCapital Investment Group",  # Different data from VCI
-                    "ownPercent": 0.28  # Different data from VCI
-                },
-                {
-                    "no": 2,
-                    "ticker": "MANULIFE",  # Different data from VCI
-                    "name": "Manulife Investment Fund",  # Different data from VCI
-                    "ownPercent": 0.15  # Different data from VCI
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            shareholders = company.shareholders()
+            return shareholders.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting shareholders for {symbol} from VCI: {e}")
             raise
@@ -88,23 +73,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_insider_trading(self, symbol: str) -> List[Dict]:
         """Get insider trading information from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.insider_trading(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            today = date.today().strftime("%y/%m/%d")
-            return [
-                {
-                    "no": 1,
-                    "ticker": symbol,
-                    "anDate": today,
-                    "dealingMethod": 2,  # Different data from VCI
-                    "dealingAction": "1",  # Different data from VCI
-                    "quantity": 3000,  # Different data from VCI
-                    "price": 26500,  # Different data from VCI
-                    "ratio": 0.005  # Different data from VCI
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            insider_trading = company.insider_transactions()
+            return insider_trading.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting insider trading for {symbol} from VCI: {e}")
             raise
@@ -112,24 +83,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_subsidiaries(self, symbol: str) -> List[Dict]:
         """Get company subsidiaries information from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.subsidiaries(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            return [
-                {
-                    "no": 1,
-                    "ticker": symbol,
-                    "companyName": f"{symbol} Technologies",  # Different data from VCI
-                    "ownPercent": 0.85  # Different data from VCI
-                },
-                {
-                    "no": 2,
-                    "ticker": symbol,
-                    "companyName": f"{symbol} Consulting",  # Different data from VCI
-                    "ownPercent": 0.60  # Different data from VCI
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            subsidiaries = company.subsidiaries()
+            return subsidiaries.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting subsidiaries for {symbol} from VCI: {e}")
             raise
@@ -137,30 +93,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_company_events(self, symbol: str) -> List[Dict]:
         """Get company events from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.company_events(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            next_month = (datetime.now().replace(month=datetime.now().month % 12 + 1)).strftime("%Y-%m-%d %H:%M:%S")
-            
-            return [
-                {
-                    "id": 1,
-                    "ticker": symbol,
-                    "price": 58000,  # Different data from VCI
-                    "priceChange": 800,  # Different data from VCI
-                    "priceChangeRatio": 0.014,  # Different data from VCI
-                    "priceChangeRatio1M": 0.022,  # Different data from VCI
-                    "eventName": f"{symbol} - Extraordinary General Meeting",  # Different data from VCI
-                    "eventCode": "EGME",  # Different data from VCI
-                    "notifyDate": today,
-                    "exerDate": next_month,
-                    "regFinalDate": "2023-04-15 00:00:00",  # Different data from VCI
-                    "exRigthDate": "2023-04-10 00:00:00",  # Different data from VCI
-                    "eventDesc": f"Extraordinary General Meeting for {symbol}"  # Different data from VCI
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            events = company.events()
+            return events.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting company events for {symbol} from VCI: {e}")
             raise
@@ -168,27 +103,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_company_news(self, symbol: str) -> List[Dict]:
         """Get company news from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.company_news(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            
-            return [
-                {
-                    "rsi": 48.2,  # Different data from VCI
-                    "rs": 45,  # Different data from VCI
-                    "ticker": symbol,
-                    "price": 59800,  # Different data from VCI
-                    "priceChange": 300,  # Different data from VCI
-                    "priceChangeRatio": 0.005,  # Different data from VCI
-                    "priceChangeRatio1M": 0.014,  # Different data from VCI
-                    "id": 11500861,  # Different data from VCI
-                    "title": f"{symbol}: New partnership announcement",  # Different data from VCI
-                    "source": "HNX",  # Different data from VCI
-                    "publishDate": today
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            news = company.news()
+            return news.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting company news for {symbol} from VCI: {e}")
             raise
@@ -196,20 +113,9 @@ class VciCompanyDataSource(CompanyDataSource):
     async def get_dividends(self, symbol: str) -> List[Dict]:
         """Get dividend history from VCI data source"""
         try:
-            # TODO: Implement connection to vnstock with VCI source
-            # Example: import vnstock; result = await vnstock.dividends(symbol, source=self.SOURCE)
-            
-            # Placeholder data - VCI might have a different structure than TCBS
-            return [
-                {
-                    "exerciseDate": "15/11/24",  # Different data from VCI
-                    "cashYear": 2023,
-                    "cashDividendPercentage": 0.06,  # Different data from VCI
-                    "issueMethod": "cash",
-                    "no": 1,
-                    "ticker": symbol
-                }
-            ]
+            company = Company(symbol=symbol, source=self.SOURCE)
+            dividends = company.dividends()
+            return dividends.to_dict(orient='records')
         except Exception as e:
             logger.error(f"Error getting dividends for {symbol} from VCI: {e}")
             raise 
