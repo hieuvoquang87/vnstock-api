@@ -39,6 +39,7 @@ The project is currently in the planning phase, focused on establishing the foun
 - Added requirements for OpenAPI UI and GraphQL Explorer
 - Created docs/implementation folder structure mirroring app structure
 - Added documentation approach requiring corresponding .md files for each implementation file
+- Implemented mock data for GraphQL endpoints while REST API is being finalized
 
 ## Next Steps
 
@@ -119,6 +120,7 @@ The project is currently in the planning phase, focused on establishing the foun
    - What authentication mechanism should be used for the MVP?
    - How to handle rate limiting in the initial implementation?
    - What documentation template should be used for implementation files?
+   - **GraphQL Implementation**: Using mock data for GraphQL endpoints initially while focusing on REST API development. Will revisit and integrate with real data sources after the REST API is finalized.
 
 2. **Technical Considerations**
 

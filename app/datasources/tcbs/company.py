@@ -46,8 +46,9 @@ class TcbsCompanyDataSource(CompanyDataSource):
         """Get company profile information from TCBS data source"""
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
-            company_overview = company.overview()
-            return company_overview.to_dict(orient='records')
+            result = company.overview()
+            company_overviews = result.to_dict(orient='records')
+            return company_overviews[0]
         except Exception as e:
             logger.error(f"Error getting company profile for {symbol} from TCBS: {e}")
             raise

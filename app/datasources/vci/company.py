@@ -11,7 +11,7 @@ class VciCompanyDataSource(CompanyDataSource):
     
     # Define the source as a class attribute
     SOURCE = SOURCE_VCI
-
+    
     async def get_company_info(self, symbol: str) -> Dict:
         """Get comprehensive company information from VCI data source"""
         try:
@@ -44,8 +44,9 @@ class VciCompanyDataSource(CompanyDataSource):
         """Get company profile information from VCI data source"""
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
-            company_overview = company.overview()
-            return company_overview.to_dict(orient='records')
+            result = company.overview()
+            company_overviews = result.to_dict(orient='records')
+            return company_overviews[0]
         except Exception as e:
             logger.error(f"Error getting company profile for {symbol} from VCI: {e}")
             raise

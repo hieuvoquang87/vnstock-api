@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import Dict, List, Optional
+import logging
 from app.services.company_service import CompanyService
 from app.datasources.base import SOURCE_ALL, SOURCE_TCBS, SOURCE_VCI
 from datetime import datetime
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 async def get_company_service():
     """Dependency for CompanyService"""

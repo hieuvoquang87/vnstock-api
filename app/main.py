@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from strawberry.fastapi import GraphQLRouter
 
 from app.api.rest.v1 import router as api_v1_router
-from app.api.graphql import router as graphql_router
+from app.api.graphql.schema import schema
 
 # Create FastAPI app
 app = FastAPI(
@@ -34,10 +35,12 @@ async def root():
         "graphql": "/graphql",
     }
 
-
 # Include routers
 app.include_router(api_v1_router, prefix="/api/v1")
-app.include_router(graphql_router, prefix="/graphql")
+
+# Add GraphQL route
+graphql_app = GraphQLRouter(schema)
+app.include_router(graphql_app, prefix="/graphql")
 
 if __name__ == "__main__":
     import uvicorn
