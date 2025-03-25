@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.rest.v1 import router as api_v1_router
+from app.api.graphql import router as graphql_router
 
 # Create FastAPI app
 app = FastAPI(
@@ -30,11 +31,13 @@ async def root():
         "message": "VNStock API is running",
         "version": "0.1.0",
         "documentation": "/docs",
+        "graphql": "/graphql",
     }
 
 
 # Include routers
 app.include_router(api_v1_router, prefix="/api/v1")
+app.include_router(graphql_router, prefix="/graphql")
 
 if __name__ == "__main__":
     import uvicorn
