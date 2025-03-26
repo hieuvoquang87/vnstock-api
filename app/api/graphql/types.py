@@ -2,13 +2,13 @@ from typing import Optional, List
 import strawberry
 from enum import Enum
 from datetime import datetime
-from app.datasources.base import SOURCE_TCBS, SOURCE_VCI, SOURCE_ALL
+from app.datasources.base import SOURCE_TCBS, SOURCE_VCI, SOURCE_UNIFIED
 
 @strawberry.enum
 class DataSource(Enum):
     TCBS = SOURCE_TCBS
     VCI = SOURCE_VCI
-    ALL = SOURCE_ALL
+    ALL = SOURCE_UNIFIED
 
 @strawberry.type
 class CompanyProfile:

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 # Source constants
 SOURCE_TCBS = "tcbs"
 SOURCE_VCI = "vci"
-SOURCE_ALL = "all"
+SOURCE_UNIFIED = "unified"
 
 class CompanyDataSource(ABC):
     """Abstract interface for company data sources"""
@@ -52,4 +52,4 @@ class CompanyDataSource(ABC):
     @abstractmethod
     async def get_dividends(self, symbol: str) -> List[Dict]:
         """Get dividend history"""
-        pass 
+        pass

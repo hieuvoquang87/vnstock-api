@@ -1,5 +1,4 @@
-from typing import Dict, List, Optional
-from datetime import datetime, date
+from typing import Dict, List
 import logging
 from vnstock.common.data.data_explorer import Company
 from app.datasources.base import CompanyDataSource, SOURCE_VCI

@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 from fastapi import APIRouter, Depends, Path, Query, HTTPException
-
+from app.datasources.base import SOURCE_UNIFIED
 from app.models.schemas.response import create_api_response, create_error_response
 from app.services.company_service import CompanyService
 
@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("/{symbol}")
 async def get_company_info(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get comprehensive company information.
@@ -29,7 +29,7 @@ async def get_company_info(
 @router.get("/{symbol}/profile")
 async def get_company_profile(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get detailed company profile.
@@ -48,7 +48,7 @@ async def get_company_profile(
 @router.get("/{symbol}/officers")
 async def get_company_officers(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get company management information.
@@ -67,7 +67,7 @@ async def get_company_officers(
 @router.get("/{symbol}/shareholders")
 async def get_shareholders(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get major shareholders information.
@@ -86,7 +86,7 @@ async def get_shareholders(
 @router.get("/{symbol}/insider-trading")
 async def get_insider_trading(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get insider trading information.
@@ -105,7 +105,7 @@ async def get_insider_trading(
 @router.get("/{symbol}/subsidiaries")
 async def get_subsidiaries(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get company subsidiaries.
@@ -124,7 +124,7 @@ async def get_subsidiaries(
 @router.get("/{symbol}/events")
 async def get_company_events(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get company events.
@@ -143,7 +143,7 @@ async def get_company_events(
 @router.get("/{symbol}/news")
 async def get_company_news(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get company news.
@@ -162,7 +162,7 @@ async def get_company_news(
 @router.get("/{symbol}/dividends")
 async def get_dividends(
     symbol: str = Path(..., description="Company stock symbol"),
-    source: str = Query("vnstock", description="Data source to use")
+    source: str = Query(SOURCE_UNIFIED, description="Data source to use")
 ):
     """
     Get dividend history.
