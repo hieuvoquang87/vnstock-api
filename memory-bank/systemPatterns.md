@@ -263,22 +263,28 @@ vnstock-api/
 
 1. **Implementation Documentation**
 
-   - Mirror the application structure in `docs/implementation/`
+   - Implementation documentation in `memory-bank/implementation/` serves as a blueprint for actual code implementation
+   - Mirror the application structure - each folder in `app/` has a corresponding folder in `memory-bank/implementation/`
    - Each implementation file (`.py`) has a corresponding documentation file (`.md`)
+   - Implementation docs can exist before actual code implementation
    - Document all functions, classes, and methods with parameters, return types, and examples
-   - Keep documentation synchronized with code changes
+   - Code is generated based on the detailed specifications in implementation docs
 
 2. **Documentation Format**
 
-   - Function descriptions in Markdown format
-   - Parameter and return type documentation
+   - Function signatures with type hints
+   - Parameter and return type descriptions
+   - Detailed explanation of function purpose and behavior
    - Usage examples and edge cases
-   - Integration notes where applicable
+   - Dependencies and side effects
+   - Error handling approach
 
 3. **Documentation Maintenance**
-   - Update documentation with each code change
+   - Bidirectional synchronization between implementation docs and code
+   - Code changes → Update implementation docs
+   - Implementation doc changes → Update code implementation
    - Review documentation during code reviews
-   - Automate documentation checks in CI pipeline
+   - Verify documentation reflects the current implementation accurately
 
 ## Serverless Considerations
 
@@ -298,3 +304,52 @@ vnstock-api/
    - Break complex operations into smaller functions
    - Balance function size vs. cold start time
    - Consider provisioned concurrency for critical paths
+
+## Implementation Documentation Framework
+
+### Overview
+
+The project follows a documentation-first approach for code implementation. Implementation documentation in the `memory-bank/implementation` directory serves as a blueprint for the actual code implementation in the `app/` directory.
+
+### Key Principles
+
+1. **Mirror Structure**: Implementation docs mirror the structure of the `app/` directory
+2. **Preemptive Documentation**: Implementation docs can exist before actual code implementation
+3. **Detailed Specification**: Documentation must detail every function (inputs, outputs, purpose)
+4. **Code Generation**: Implementation docs are used to generate the actual code implementation
+5. **Bidirectional Updates**: Changes in code must update docs and vice versa
+
+### Implementation to Code Workflow
+
+```mermaid
+flowchart TD
+    ID[Implementation Doc] --> CI[Code Implementation]
+    CI --> UT[Unit Tests]
+    CI --> UD[Update Documentation]
+    ID --> UT
+```
+
+1. Create detailed implementation documentation
+2. Generate code based on documentation
+3. Verify implementation with tests
+4. Update documentation with any implementation changes
+
+### Documentation Requirements
+
+Implementation docs must include:
+
+- Function signatures with type hints
+- Parameter descriptions
+- Return type descriptions
+- Function purpose and behavior
+- Usage examples
+- Dependencies and side effects
+- Error handling approach
+
+### Implementation Doc to Code Synchronization
+
+Changes in either the implementation documentation or code must be synchronized:
+
+1. Code changes → Update implementation docs
+2. Implementation doc changes → Update code implementation
+3. Review diffs between implementation docs and code during code reviews
