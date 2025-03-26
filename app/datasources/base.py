@@ -53,3 +53,57 @@ class CompanyDataSource(ABC):
     async def get_dividends(self, symbol: str) -> List[Dict]:
         """Get dividend history"""
         pass
+
+class FinancialDataSource(ABC):
+    """Abstract interface for financial data sources"""
+
+    @abstractmethod
+    async def get_balance_sheet(
+        self,
+        symbol: str,
+        period: str = "year",
+        lang: str = "vi",
+        dropna: bool = True,
+        to_df: bool = True,
+        show_log: bool = False
+    ) -> Dict:
+        """Get balance sheet data"""
+        pass
+
+    @abstractmethod
+    async def get_income_statement(
+        self,
+        symbol: str,
+        period: str = "year",
+        lang: str = "vi",
+        dropna: bool = True,
+        to_df: bool = True,
+        show_log: bool = False
+    ) -> Dict:
+        """Get income statement data"""
+        pass
+
+    @abstractmethod
+    async def get_cash_flow(
+        self,
+        symbol: str,
+        period: str = "year",
+        dropna: bool = True,
+        to_df: bool = True,
+        show_log: bool = False
+    ) -> Dict:
+        """Get cash flow data"""
+        pass
+
+    @abstractmethod
+    async def get_ratios(
+        self,
+        symbol: str,
+        period: str = "year",
+        lang: str = "vi",
+        dropna: bool = True,
+        to_df: bool = True,
+        show_log: bool = False
+    ) -> Dict:
+        """Get financial ratios data"""
+        pass
