@@ -46,15 +46,7 @@ def test_vci_listing():
     # Test all_symbols
     test_listing_function(listing, 'all_symbols', 'vci', {})
     
-    # Test search_symbols
-    test_listing_function(listing, 'search_symbols', 'vci', {
-        "query": "VCI"
-    })
-    
-    # Test symbol_details
-    test_listing_function(listing, 'symbol_details', 'vci', {
-        "symbol": "VCI"
-    })
+    # Note: search_symbols and symbol_details are not supported by VCI
 
 def test_tcbs_listing():
     """Test Listing functionality with TCBS data source."""

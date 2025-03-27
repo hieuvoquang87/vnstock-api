@@ -22,9 +22,8 @@ This documentation accompanies the executable Python file `listing-example.py` w
 
 ```python
 def all_symbols(
-    to_df: bool = True,            # Optional: Return as DataFrame (True) or JSON (False)
     show_log: bool = False         # Optional: Show debug logs
-) -> Union[pd.DataFrame, str]
+) -> dict
 ```
 
 Returns list of all available symbols including:
@@ -43,9 +42,8 @@ def search_symbols(
     query: str,                    # Required: Search query
     exchange: Optional[str] = None, # Optional: Exchange filter (HOSE, HNX, UPCOM)
     industry: Optional[str] = None, # Optional: Industry filter
-    to_df: bool = True,            # Optional: Return as DataFrame (True) or JSON (False)
     show_log: bool = False         # Optional: Show debug logs
-) -> Union[pd.DataFrame, str]
+) -> dict
 ```
 
 Returns matching symbols based on search criteria including:
@@ -57,14 +55,15 @@ Returns matching symbols based on search criteria including:
 - Market cap
 - Listing date
 
+**Note**: Not supported by VCI data source.
+
 ### 3. Symbol Details
 
 ```python
 def symbol_details(
     symbol: str,                   # Required: Stock code
-    to_df: bool = True,            # Optional: Return as DataFrame (True) or JSON (False)
     show_log: bool = False         # Optional: Show debug logs
-) -> Union[pd.DataFrame, str]
+) -> dict
 ```
 
 Returns detailed information for a specific symbol including:
@@ -80,6 +79,8 @@ Returns detailed information for a specific symbol including:
 - Foreign ownership limit
 - Trading unit
 
+**Note**: Not supported by VCI data source.
+
 ## Example Usage
 
 ### VCI Data Source
@@ -91,20 +92,7 @@ from vnstock import Listing
 listing = Listing(source='VCI')
 
 # Get all symbols
-df = listing.all_symbols(show_log=True)
-
-# Search symbols
-df = listing.search_symbols(
-    query='bank',
-    exchange='HOSE',
-    show_log=True
-)
-
-# Get symbol details
-df = listing.symbol_details(
-    symbol='VCI',
-    show_log=True
-)
+data = listing.all_symbols(show_log=True)
 ```
 
 ### TCBS Data Source
@@ -116,17 +104,17 @@ from vnstock import Listing
 listing = Listing(source='TCBS')
 
 # Get all symbols
-df = listing.all_symbols(show_log=True)
+data = listing.all_symbols(show_log=True)
 
 # Search symbols
-df = listing.search_symbols(
+data = listing.search_symbols(
     query='bank',
     exchange='HOSE',
     show_log=True
 )
 
 # Get symbol details
-df = listing.symbol_details(
+data = listing.symbol_details(
     symbol='TCB',
     show_log=True
 )
@@ -141,13 +129,13 @@ from vnstock import Listing
 listing = Listing(source='MSN')
 
 # Search symbols
-df = listing.search_symbols(
+data = listing.search_symbols(
     query='MSFT',
     show_log=True
 )
 
 # Get symbol details
-df = listing.symbol_details(
+data = listing.symbol_details(
     symbol='MSFT',
     show_log=True
 )

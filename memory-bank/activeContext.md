@@ -1,169 +1,122 @@
-# Active Context: vnstock-api
+# Active Development Context
 
 ## Current Work Focus
 
-The project is currently in the planning phase, focused on establishing the foundational documentation and project structure before beginning implementation. The main focus areas are:
-
-1. **Project Setup**
-
-   - Establishing project documentation
-   - Creating the Memory Bank structure
-   - Setting up the basic repository structure
-   - Defining detailed file and folder organization
-   - Creating implementation documentation structure
-
-2. **Initial Planning**
-
-   - Defining the API wrapper scope based on vnstock library capabilities
-   - Planning the architecture and component design
-   - Establishing development phases and milestones
-   - Designing for serverless deployment
-   - Designing documentation strategy
-
-3. **Requirements Analysis**
-   - Understanding the vnstock library functionality
-   - Identifying key API endpoints to implement
-   - Defining authentication and security requirements
-   - Planning for external managed services integration
-   - Determining implementation documentation templates
+- **Implementation of core services**: Building service and datasource layers with clear interfaces and implementations
+- **API design and standardization**: Creating standardized API routes and response formats
+- **Error handling and validation**: Implementing robust error handling across the application
+- **Refactoring**: Moving away from monolithic scripts to modular components
+- **Naming conventions**: Establishing and following consistent naming conventions
+- **API-first approach**: Developing the API with FastAPI endpoints and user-friendly URL structures
 
 ## Recent Changes
 
-- Created project README.md with comprehensive overview
-- Established Memory Bank structure with core documentation files
-- Defined the multi-phase development approach
-- Outlined system architecture and component relationships
-- Added detailed file and folder structure
-- Updated to require Python 3.12
-- Changed deployment strategy to serverless
-- Added requirements for OpenAPI UI and GraphQL Explorer
-- Created docs/implementation folder structure mirroring app structure
-- Added documentation approach requiring corresponding .md files for each implementation file
-- Implemented mock data for GraphQL endpoints while REST API is being finalized
-- Implementation documentation moved from `docs/implementation` to `memory-bank/implementation`
-- Established formal Implementation Documentation Framework
-- Implementation docs now serve as blueprints for code implementation
-- Bidirectional synchronization between implementation docs and code
+1. Created project README.md, Memory Bank structure, and multi-phase development approach
+2. Updated requirements to Python 3.12 and changed deployment strategy to serverless
+3. Designed and implemented modular datasource architecture with factory pattern
+4. Created initial service layer with standardized interfaces and implementations
+5. Implemented mock data for GraphQL endpoints
+6. Established formal Implementation Documentation Framework
+7. Extracted listing capabilities into modular components and created listing endpoints
+8. Removed unsupported methods (`search_symbols` and `get_symbol_details`) from VCI datasource implementation
+9. Fixed abstract class issue by making methods optional in the base class rather than requiring all subclasses to implement them
+10. Cleaned up method signatures by removing unnecessary parameters (`to_df`) from interface and implementations
+11. Added data source abstraction with ListingDataSource abstract class and implementations for VCI, TCBS, and MSN
+12. Implemented ListingService to act as a facade to the data sources
+13. Created REST API v1 routes for the listing endpoints
+14. Made search_symbols and get_symbol_details optional methods in ListingDataSource interface
+15. Removed explicit implementations for unsupported methods in VCI datasource
+16. Added proper error handling for unsupported methods returning 501 Not Implemented status
+17. Updated documentation to clearly indicate which datasources support which endpoints
+18. Added more comprehensive test coverage for data sources
+19. Removed to_df parameter from all method signatures to simplify the API
+
+## API Design Decisions
+
+- Use REST for common data retrieval and GraphQL for complex, client-specific queries
+- Standardized response format for all API endpoints with consistent error handling
+- Support for multiple data sources with factory pattern and source query parameter
+- Clear documentation of supported vs. unsupported features per data source
+- Consistent route naming and HTTP verb usage
+- API versioning (v1) built into URL structure
+- Graceful handling of unsupported methods with NotImplementedError and 501 status codes
+- Method signatures simplified by removing unnecessary parameters for better consistency
+- Use of abstract base classes for data sources to allow for multiple implementations
+- Services act as a facade to the data sources, providing a consistent interface
+- REST API versioning (v1) to allow for future changes
+- Optional parameters provided with sensible defaults
+- Consistent error handling via HTTP status codes:
+  - 200: Successful operation
+  - 400: Bad request (invalid parameters)
+  - 404: Resource not found
+  - 500: Server error
+  - 501: Method not implemented by the current datasource
 
 ## Implementation Documentation Framework
 
-The project now follows a documentation-first approach where:
+Documentation is organized by feature area in the `memory-bank/implementation/` directory:
 
-1. Implementation docs in `memory-bank/implementation` mirror structure of `app/` directory
-2. Implementation docs serve as detailed blueprints for code implementation
-3. Implementation docs can exist before actual code implementation
-4. Changes in code must update docs and vice versa
-
-This approach ensures:
-
-- Clear specifications before coding begins
-- Consistent documentation that stays in sync with code
-- Better code quality through detailed planning
-- Easier onboarding for new developers
-
-The next steps for implementation docs:
-
-- Review existing implementation docs for completeness
-- Update implementation docs for any recent code changes
-- Create implementation docs for planned features before coding
+1. **Architecture**: Overall system architecture, design patterns, and component relationships
+2. **API**:
+   - REST: Endpoints, parameters, response formats
+   - GraphQL: Schema, queries, mutations
+3. **Services**: Service layer interfaces and implementations
+4. **Datasources**: Data source implementations and interfaces
+5. **Models**: Data models, schemas, and validation
+6. **Utilities**: Shared utility functions and helpers
 
 ## Next Steps
 
-### Immediate (Phase 1 MVP Preparation)
+### Immediate
 
-1. **Project Structure Setup**
+- Implement remaining service capabilities (financial data, price data, etc.)
+- Create comprehensive test suite for all components
+- Complete API documentation for all endpoints
+- Optimize performance for data-intensive operations
+- Plan and start Phase 2: Advanced Features, including GraphQL implementation
 
-   - Initialize Poetry project with pyproject.toml (Python 3.12)
-   - Set up Makefile with common commands
-   - Create basic directory structure following the defined file organization
-   - Set up serverless.yml configuration
-   - Create documentation template for implementation files
+### Future Phases
 
-2. **Environment Configuration**
+- **Phase 2: Advanced Features**
 
-   - Set up development environment
-   - Configure linting and code formatting
-   - Create sample environment variables file
-   - Set up local development with Docker
-   - Create documentation structure and initial templates
+  - GraphQL API implementation
+  - Data caching and optimization
+  - Advanced analytics endpoints
+  - Authentication and rate limiting
 
-3. **Initial Code Implementation**
-   - Create FastAPI application skeleton
-   - Configure OpenAPI documentation UI
-   - Implement basic health check endpoint
-   - Set up testing framework
-   - Configure serverless handler (Mangum)
-   - Create corresponding documentation files for initial implementation
+- **Phase 3: External Services**
+  - Email notifications
+  - Integration with external platforms
+  - Scheduled reports
+  - User preferences and customization
 
-### Short-term (Phase 1 MVP Implementation)
+## Tasks in Progress
 
-1. **Core API Development**
+1. Implement TCBS data source
+2. Implement MSN data source
+3. Add authentication to the API
+4. Add rate limiting to prevent abuse
+5. Improve documentation with examples
 
-   - Create vnstock adapter module
-   - Implement first REST endpoints
-   - Set up OpenAPI documentation with interactive examples
-   - Ensure compatibility with serverless deployment
-   - Document all implemented functions and endpoints
+## Design Principles
 
-2. **Testing Strategy**
+1. Single Responsibility: Each component has a clear, well-defined purpose
+2. Open/Closed: Systems are open for extension but closed for modification
+3. Interface Segregation: Clients don't depend on methods they don't use
+4. Dependency Inversion: High-level modules don't depend on low-level modules
 
-   - Develop unit tests for adapters and services
-   - Implement integration tests for API endpoints
-   - Configure test coverage reporting
-   - Add serverless-specific tests
-   - Document testing approach and patterns
+## API Support Matrix
 
-3. **CI/CD Pipeline**
-   - Set up GitHub Actions workflow
-   - Configure automated testing
-   - Set up code quality checks
-   - Add serverless deployment pipeline
-   - Add documentation validation checks
-
-### Medium-term (Phase 2-3 Planning)
-
-1. **GraphQL Implementation Planning**
-
-   - Research GraphQL schema design for vnstock
-   - Plan resolver implementation
-   - Design type system
-   - Plan GraphQL Explorer integration
-   - Create documentation templates for GraphQL components
-
-2. **External Services Integration**
-   - Design Redis Cloud integration
-   - Plan Supabase integration
-   - Define infrastructure as code
-   - Design cache invalidation strategy
-   - Document integration patterns and configurations
-
-## Active Decisions and Considerations
-
-1. **API Design Decisions**
-
-   - How closely should REST endpoints mirror vnstock function names vs. being more RESTful?
-   - How to structure the OpenAPI documentation for best user experience?
-   - What authentication mechanism should be used for the MVP?
-   - How to handle rate limiting in the initial implementation?
-   - What documentation template should be used for implementation files?
-   - **GraphQL Implementation**: Using mock data for GraphQL endpoints initially while focusing on REST API development. Will revisit and integrate with real data sources after the REST API is finalized.
-
-2. **Technical Considerations**
-
-   - How to optimize serverless cold start times with Python 3.12?
-   - Should we use async or sync functions for the adapters?
-   - How to handle long-running operations in a serverless environment?
-   - What error handling strategy should be used?
-   - How to structure the project for optimal serverless deployment?
-   - How to ensure documentation stays synchronized with code?
-
-3. **Open Questions**
-   - What is the expected load and traffic pattern?
-   - Are there any specific performance benchmarks to target?
-   - How frequently does the vnstock library update, and how to handle versioning?
-   - What are the cost implications of the serverless approach?
-   - Should documentation generation be automated or manual?
-
-## Current Development Phase
-
-The project is currently in **Phase 0: Planning and Setup** before beginning the implementation of Phase 1 (MVP). The focus is on establishing a solid foundation and clear direction for the project, with particular attention to serverless architecture, managed services integration, and comprehensive documentation practices.
+| Endpoint              | VCI | TCBS | MSN |
+| --------------------- | --- | ---- | --- |
+| all_symbols           | ✅  | ✅   | ✅  |
+| search_symbols        | ❌  | ✅   | ✅  |
+| symbol_details        | ❌  | ✅   | ✅  |
+| symbols_by_industries | ✅  | ❌   | ❌  |
+| symbols_by_exchange   | ✅  | ❌   | ❌  |
+| symbols_by_group      | ✅  | ❌   | ❌  |
+| industries_icb        | ✅  | ❌   | ❌  |
+| all_future_indices    | ✅  | ❌   | ❌  |
+| all_covered_warrant   | ✅  | ❌   | ❌  |
+| all_bonds             | ✅  | ❌   | ❌  |
+| all_government_bonds  | ✅  | ❌   | ❌  |
