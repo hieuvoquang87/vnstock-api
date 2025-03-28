@@ -1,6 +1,5 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 import logging
 
 from app.api.rest.v1 import v1_router
@@ -38,9 +37,6 @@ async def root():
         "message": "Welcome to VNStock API",
         "documentation": "/docs",
     }
-
-# Lambda handler
-handler = Mangum(app)
 
 # Run the app
 if __name__ == "__main__":

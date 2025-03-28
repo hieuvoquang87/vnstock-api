@@ -12,6 +12,6 @@ v1_router = APIRouter(prefix="/v1")
 # Include routers
 v1_router.include_router(companies_router, prefix="/companies", tags=["Companies"])
 v1_router.include_router(financial_router, prefix="/financial", tags=["Financial"])
-v1_router.include_router(listing_router)
+v1_router.include_router(listing_router, prefix="/listing", tags=["Listing"])
 
 __all__ = ["v1_router"]

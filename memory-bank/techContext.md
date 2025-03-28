@@ -96,25 +96,21 @@
    - Deployment pipelines
    - Documentation validation
 
-2. **Serverless Framework**
+2. **Deployment Options**
 
-   - Deploying serverless functions
-   - Managing infrastructure as code
-   - Multi-cloud deployment capability
+   - Standard FastAPI deployment with Uvicorn
+   - Docker container deployment
+   - Cloud platform support (AWS, Azure, GCP)
+   - Container orchestration (Kubernetes, ECS)
 
-3. **AWS Lambda / Azure Functions**
-
-   - Serverless compute platform
-   - Pay-per-use pricing model
-   - Auto-scaling capabilities
-
-4. **Docker**
+3. **Docker**
 
    - Local development environment
    - CI/CD pipeline testing
+   - Containerized deployment
 
-5. **Terraform / AWS CDK**
-   - Infrastructure as Code
+4. **Infrastructure as Code**
+   - Terraform / AWS CDK
    - Automated environment provisioning
    - Consistent infrastructure management
 

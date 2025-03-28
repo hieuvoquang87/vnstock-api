@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, Query, Path, HTTPException
-from typing import Optional, Dict
-import logging
 from datetime import datetime
-
+import logging
 from app.services.listing_service import ListingService
 from app.models.schemas.listing import ApiResponse, ApiErrorResponse, ResponseModel
 
@@ -11,8 +9,6 @@ logger = logging.getLogger(__name__)
 
 # Create router
 router = APIRouter(
-    prefix="/listing",
-    tags=["listing"],
     responses={
         404: {"model": ApiErrorResponse, "description": "Not found"},
         500: {"model": ApiErrorResponse, "description": "Internal server error"},

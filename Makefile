@@ -2,6 +2,7 @@
 
 # Setup development environment
 setup:
+	pip install poetry
 	poetry install
 	poetry env activate
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
