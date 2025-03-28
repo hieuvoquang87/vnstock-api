@@ -5,7 +5,10 @@ setup:
 	pip install poetry
 	poetry install
 	poetry env activate
+
+install-requirements:
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
+	pip install -r requirements.txt
 
 # Run development server
 dev:
