@@ -1,10 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Path
-from typing import Dict, List, Optional
-from datetime import datetime
 import logging
+from datetime import datetime
+from typing import Dict, List, Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Path, Query
+
+from app.datasources.base import SOURCE_TCBS, SOURCE_UNIFIED
+from app.models.schemas.listing import ApiErrorResponse, ApiResponse
 from app.services.financial_service import FinancialService
-from app.datasources.base import SOURCE_UNIFIED, SOURCE_TCBS
-from app.models.schemas.listing import ApiResponse, ApiErrorResponse
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -17,7 +19,10 @@ router = APIRouter(
     },
 )
 
-async def get_financial_service(source: str = Query(SOURCE_TCBS, description="Data source to use")) -> FinancialService:
+
+async def get_financial_service(
+    source: str = Query(SOURCE_TCBS, description="Data source to use")
+) -> FinancialService:
     """Dependency injection for FinancialService"""
     try:
         return FinancialService(source=source)
@@ -32,7 +37,7 @@ async def get_financial_service(source: str = Query(SOURCE_TCBS, description="Da
     "/{symbol}/balance-sheets",
     response_model=ApiResponse,
     summary="Get balance sheet data",
-    description="Get balance sheet data for a company"
+    description="Get balance sheet data for a company",
 )
 async def get_balance_sheet(
     symbol: str = Path(..., description="Stock ticker symbol"),
@@ -40,16 +45,12 @@ async def get_balance_sheet(
     dropna: bool = Query(True, description="Drop rows with all NaN values"),
     to_df: bool = Query(True, description="Return as DataFrame"),
     show_log: bool = Query(False, description="Show debug logs"),
-    service: FinancialService = Depends(get_financial_service)
+    service: FinancialService = Depends(get_financial_service),
 ) -> Dict:
     """Get balance sheet data for a company"""
     try:
         data = await service.get_balance_sheet(
-            symbol=symbol,
-            period=period,
-            dropna=dropna,
-            to_df=to_df,
-            show_log=show_log
+            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -58,15 +59,12 @@ async def get_balance_sheet(
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
                 "symbol": symbol,
-                "period": period
-            }
+                "period": period,
+            },
         )
     except NotImplementedError as e:
         logger.warning(f"Get balance sheet not implemented for source {service.source}: {str(e)}")
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_balance_sheet for {symbol}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -76,7 +74,7 @@ async def get_balance_sheet(
     "/{symbol}/income-statements",
     response_model=ApiResponse,
     summary="Get income statement data",
-    description="Get income statement data for a company"
+    description="Get income statement data for a company",
 )
 async def get_income_statement(
     symbol: str = Path(..., description="Stock ticker symbol"),
@@ -84,16 +82,12 @@ async def get_income_statement(
     dropna: bool = Query(True, description="Drop rows with all NaN values"),
     to_df: bool = Query(True, description="Return as DataFrame"),
     show_log: bool = Query(False, description="Show debug logs"),
-    service: FinancialService = Depends(get_financial_service)
+    service: FinancialService = Depends(get_financial_service),
 ) -> Dict:
     """Get income statement data for a company"""
     try:
         data = await service.get_income_statement(
-            symbol=symbol,
-            period=period,
-            dropna=dropna,
-            to_df=to_df,
-            show_log=show_log
+            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -102,15 +96,14 @@ async def get_income_statement(
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
                 "symbol": symbol,
-                "period": period
-            }
+                "period": period,
+            },
         )
     except NotImplementedError as e:
-        logger.warning(f"Get income statement not implemented for source {service.source}: {str(e)}")
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
+        logger.warning(
+            f"Get income statement not implemented for source {service.source}: {str(e)}"
         )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_income_statement for {symbol}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -120,7 +113,7 @@ async def get_income_statement(
     "/{symbol}/cash-flows",
     response_model=ApiResponse,
     summary="Get cash flow data",
-    description="Get cash flow data for a company"
+    description="Get cash flow data for a company",
 )
 async def get_cash_flow(
     symbol: str = Path(..., description="Stock ticker symbol"),
@@ -128,16 +121,12 @@ async def get_cash_flow(
     dropna: bool = Query(True, description="Drop rows with all NaN values"),
     to_df: bool = Query(True, description="Return as DataFrame"),
     show_log: bool = Query(False, description="Show debug logs"),
-    service: FinancialService = Depends(get_financial_service)
+    service: FinancialService = Depends(get_financial_service),
 ) -> Dict:
     """Get cash flow data for a company"""
     try:
         data = await service.get_cash_flow(
-            symbol=symbol,
-            period=period,
-            dropna=dropna,
-            to_df=to_df,
-            show_log=show_log
+            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -146,15 +135,12 @@ async def get_cash_flow(
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
                 "symbol": symbol,
-                "period": period
-            }
+                "period": period,
+            },
         )
     except NotImplementedError as e:
         logger.warning(f"Get cash flow not implemented for source {service.source}: {str(e)}")
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_cash_flow for {symbol}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -164,7 +150,7 @@ async def get_cash_flow(
     "/{symbol}/ratios",
     response_model=ApiResponse,
     summary="Get financial ratios data",
-    description="Get financial ratios data for a company"
+    description="Get financial ratios data for a company",
 )
 async def get_ratios(
     symbol: str = Path(..., description="Stock ticker symbol"),
@@ -172,16 +158,12 @@ async def get_ratios(
     dropna: bool = Query(True, description="Drop rows with all NaN values"),
     to_df: bool = Query(True, description="Return as DataFrame"),
     show_log: bool = Query(False, description="Show debug logs"),
-    service: FinancialService = Depends(get_financial_service)
+    service: FinancialService = Depends(get_financial_service),
 ) -> Dict:
     """Get financial ratios data for a company"""
     try:
         data = await service.get_ratios(
-            symbol=symbol,
-            period=period,
-            dropna=dropna,
-            to_df=to_df,
-            show_log=show_log
+            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -190,15 +172,12 @@ async def get_ratios(
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
                 "symbol": symbol,
-                "period": period
-            }
+                "period": period,
+            },
         )
     except NotImplementedError as e:
         logger.warning(f"Get ratios not implemented for source {service.source}: {str(e)}")
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_ratios for {symbol}: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))

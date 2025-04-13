@@ -1,11 +1,14 @@
 import logging
-import pandas as pd
 from typing import Dict, Optional
+
+import pandas as pd
 from vnstock.common.data.data_explorer import Listing
-from app.datasources.base import ListingDataSource, SOURCE_VCI
+
+from app.datasources.base import SOURCE_VCI, ListingDataSource
 
 # Set up logging
 logger = logging.getLogger(__name__)
+
 
 class VCIListingDataSource(ListingDataSource):
     """VCI implementation of the ListingDataSource interface."""
@@ -18,13 +21,10 @@ class VCIListingDataSource(ListingDataSource):
         """Convert DataFrame to dictionary format."""
         if not isinstance(df, pd.DataFrame):
             return df
-        
-        records = df.to_dict(orient='records')
-        
-        return {
-            'totalCount': list(df.shape)[0],
-            'records': records
-        }
+
+        records = df.to_dict(orient="records")
+
+        return {"totalCount": list(df.shape)[0], "records": records}
 
     async def get_all_symbols(self, show_log: bool = False) -> Dict:
         """Get list of all available symbols from VCI API."""
@@ -56,7 +56,7 @@ class VCIListingDataSource(ListingDataSource):
             logger.error(f"Error getting symbols by exchange from VCI: {str(e)}")
             raise
 
-    async def get_symbols_by_group(self, group: str = 'VN30', show_log: bool = False) -> Dict:
+    async def get_symbols_by_group(self, group: str = "VN30", show_log: bool = False) -> Dict:
         """Get symbols in a specific group from VCI API."""
         try:
             df = self.listing.symbols_by_group(group=group, to_df=True, show_log=show_log)
@@ -108,4 +108,4 @@ class VCIListingDataSource(ListingDataSource):
             return self._convert_df_to_dict(df)
         except Exception as e:
             logger.error(f"Error getting government bonds from VCI: {str(e)}")
-            raise 
+            raise

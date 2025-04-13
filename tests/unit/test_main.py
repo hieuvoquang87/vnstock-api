@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
+
 from app.main import app
 
 client = TestClient(app)
+
 
 def test_read_root(client):
     """Test the root endpoint returns the expected data."""
@@ -12,9 +14,10 @@ def test_read_root(client):
     assert "VNStock API" in data["message"]
     assert "version" in data
     assert "documentation" in data
-    
+
+
 def test_docs_endpoint(client):
     """Test the OpenAPI documentation endpoint is accessible."""
     response = client.get("/docs")
     assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"] 
+    assert "text/html" in response.headers["content-type"]

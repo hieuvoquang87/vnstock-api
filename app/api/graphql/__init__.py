@@ -1,6 +1,7 @@
-from fastapi import APIRouter
 import strawberry
+from fastapi import APIRouter
 from strawberry.fastapi import GraphQLRouter
+
 from .schema import schema
 
 router = APIRouter()

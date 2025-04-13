@@ -1,19 +1,22 @@
-import strawberry
-from typing import List, Optional
 import logging
 from datetime import datetime
+from typing import List, Optional
+
+import strawberry
+
 from .types import (
-    CompanyProfile,
-    CompanyOfficer,
-    Shareholder,
-    InsiderTrading,
-    Subsidiary,
     CompanyEvent,
     CompanyNews,
-    Dividend
+    CompanyOfficer,
+    CompanyProfile,
+    Dividend,
+    InsiderTrading,
+    Shareholder,
+    Subsidiary,
 )
 
 logger = logging.getLogger(__name__)
+
 
 @strawberry.type
 class Query:
@@ -35,7 +38,7 @@ class Query:
                 no_employees=48878,
                 website="https://www.fpt.com.vn",
                 business_summary="Leading technology company in Vietnam",
-                short_name="FPT Corp"
+                short_name="FPT Corp",
             )
         # Default mock data for other symbols
         return CompanyProfile(
@@ -45,7 +48,7 @@ class Query:
             industry="Unknown",
             established_year="2000",
             website=f"https://www.{symbol.lower()}.com",
-            business_summary=f"Mock data for {symbol.upper()}"
+            business_summary=f"Mock data for {symbol.upper()}",
         )
 
     @strawberry.field
@@ -53,19 +56,11 @@ class Query:
         """Return mock company officers data for development"""
         return [
             CompanyOfficer(
-                name="John Doe",
-                position="CEO",
-                age=45,
-                nationality="Vietnamese",
-                shares=100000
+                name="John Doe", position="CEO", age=45, nationality="Vietnamese", shares=100000
             ),
             CompanyOfficer(
-                name="Jane Smith",
-                position="CTO",
-                age=40,
-                nationality="Vietnamese",
-                shares=80000
-            )
+                name="Jane Smith", position="CTO", age=40, nationality="Vietnamese", shares=80000
+            ),
         ]
 
     @strawberry.field
@@ -73,17 +68,11 @@ class Query:
         """Return mock shareholders data for development"""
         return [
             Shareholder(
-                name="Investment Group A",
-                shares=1000000,
-                percentage=30.5,
-                type="Organization"
+                name="Investment Group A", shares=1000000, percentage=30.5, type="Organization"
             ),
             Shareholder(
-                name="Investment Group B",
-                shares=800000,
-                percentage=24.2,
-                type="Organization"
-            )
+                name="Investment Group B", shares=800000, percentage=24.2, type="Organization"
+            ),
         ]
 
     @strawberry.field
@@ -91,19 +80,12 @@ class Query:
         """Return mock insider trading data for development"""
         return [
             InsiderTrading(
-                date=datetime.now(),
-                type="Buy",
-                shares=10000,
-                price=85.2,
-                value=852000.0
+                date=datetime.now(), type="Buy", shares=10000, price=85.2, value=852000.0
             ),
             InsiderTrading(
-                date=datetime.now(),
-                type="Sell",
-                shares=5000,
-                price=86.4,
-                value=432000.0
-            )
+                date=datetime.now(), type="Sell", shares=5000, price=86.4, value=432000.0
+            ),
         ]
 
-schema = strawberry.Schema(query=Query) 
+
+schema = strawberry.Schema(query=Query)

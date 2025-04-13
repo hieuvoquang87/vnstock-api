@@ -3,6 +3,6 @@
 from app.datasources.vci.company import VciCompanyDataSource
 from app.datasources.vci.listing import VCIListingDataSource
 
-__all__ = ['VciCompanyDataSource', 'VCIListingDataSource']
+__all__ = ["VciCompanyDataSource", "VCIListingDataSource"]
 
-# VCI DataSource package 
+# VCI DataSource package

@@ -1,10 +1,17 @@
-from typing import Dict, Type, Optional
-from app.datasources.base import CompanyDataSource, FinancialDataSource, SOURCE_TCBS, SOURCE_VCI, SOURCE_UNIFIED
+import logging
+from typing import Dict, Optional, Type
+
+from app.datasources.base import (
+    SOURCE_TCBS,
+    SOURCE_UNIFIED,
+    SOURCE_VCI,
+    CompanyDataSource,
+    FinancialDataSource,
+)
 from app.datasources.tcbs.company import TcbsCompanyDataSource
 from app.datasources.tcbs.financial import TCBSFinancialDataSource
 from app.datasources.vci.company import VciCompanyDataSource
 from app.datasources.vci.financial import VCIFinancialDataSource
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -14,22 +21,22 @@ class DataSourceFactory:
 
     _company_datasources: Dict[str, Type[CompanyDataSource]] = {
         SOURCE_TCBS: TcbsCompanyDataSource,
-        SOURCE_VCI: VciCompanyDataSource
+        SOURCE_VCI: VciCompanyDataSource,
     }
 
     _financial_datasources: Dict[str, Type[FinancialDataSource]] = {
         SOURCE_TCBS: TCBSFinancialDataSource,
-        SOURCE_VCI: VCIFinancialDataSource
+        SOURCE_VCI: VCIFinancialDataSource,
     }
 
     _valid_sources = {SOURCE_TCBS, SOURCE_VCI, SOURCE_UNIFIED}
 
     def create_company_datasource(self, source: str) -> CompanyDataSource:
         """Create a company data source
-        
+
         Args:
             source: Data source identifier ("tcbs", "vci", or "unified")
-            
+
         Returns:
             Company data source instance
         """
@@ -45,10 +52,10 @@ class DataSourceFactory:
 
     def create_financial_datasource(self, source: str) -> FinancialDataSource:
         """Create a financial data source
-        
+
         Args:
             source: Data source identifier ("tcbs", "vci", or "unified")
-            
+
         Returns:
             Financial data source instance
         """
@@ -65,7 +72,7 @@ class DataSourceFactory:
     @classmethod
     def get_all_company_datasources(cls) -> Dict[str, CompanyDataSource]:
         """Get all available company data sources
-        
+
         Returns:
             A dictionary of data source name to data source instance
         """
@@ -89,4 +96,4 @@ class DataSourceFactory:
         elif source == SOURCE_VCI:
             return VCIFinancialDataSource()
         else:
-            raise ValueError(f"Unsupported data source: {source}") 
+            raise ValueError(f"Unsupported data source: {source}")

@@ -1,16 +1,19 @@
-from typing import Dict, List
 import logging
+from typing import Dict, List
+
 from vnstock.common.data.data_explorer import Company
-from app.datasources.base import CompanyDataSource, SOURCE_VCI
+
+from app.datasources.base import SOURCE_VCI, CompanyDataSource
 
 logger = logging.getLogger(__name__)
 
+
 class VciCompanyDataSource(CompanyDataSource):
     """VCI implementation of the CompanyDataSource interface"""
-    
+
     # Define the source as a class attribute
     SOURCE = SOURCE_VCI
-    
+
     async def get_company_info(self, symbol: str) -> Dict:
         """Get comprehensive company information from VCI data source"""
         try:
@@ -23,7 +26,7 @@ class VciCompanyDataSource(CompanyDataSource):
             events = await self.get_company_events(symbol)
             news = await self.get_company_news(symbol)
             dividends = await self.get_dividends(symbol)
-            
+
             # Combine into comprehensive info
             return {
                 "profile": profile,
@@ -33,7 +36,7 @@ class VciCompanyDataSource(CompanyDataSource):
                 "listSubCompany": subsidiaries,
                 "listEventNews": events,
                 "listActivityNews": news,
-                "listDividendPaymentHis": dividends
+                "listDividendPaymentHis": dividends,
             }
         except Exception as e:
             logger.error(f"Error getting company info for {symbol} from VCI: {e}")
@@ -44,7 +47,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             result = company.overview()
-            company_overviews = result.to_dict(orient='records')
+            company_overviews = result.to_dict(orient="records")
             return company_overviews[0]
         except Exception as e:
             logger.error(f"Error getting company profile for {symbol} from VCI: {e}")
@@ -55,7 +58,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             company_officers = company.officers()
-            return company_officers.to_dict(orient='records')
+            return company_officers.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting company officers for {symbol} from VCI: {e}")
             raise
@@ -65,7 +68,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             shareholders = company.shareholders()
-            return shareholders.to_dict(orient='records')
+            return shareholders.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting shareholders for {symbol} from VCI: {e}")
             raise
@@ -75,7 +78,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             insider_trading = company.insider_transactions()
-            return insider_trading.to_dict(orient='records')
+            return insider_trading.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting insider trading for {symbol} from VCI: {e}")
             raise
@@ -85,7 +88,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             subsidiaries = company.subsidiaries()
-            return subsidiaries.to_dict(orient='records')
+            return subsidiaries.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting subsidiaries for {symbol} from VCI: {e}")
             raise
@@ -95,7 +98,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             events = company.events()
-            return events.to_dict(orient='records')
+            return events.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting company events for {symbol} from VCI: {e}")
             raise
@@ -105,7 +108,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             news = company.news()
-            return news.to_dict(orient='records')
+            return news.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting company news for {symbol} from VCI: {e}")
             raise
@@ -115,7 +118,7 @@ class VciCompanyDataSource(CompanyDataSource):
         try:
             company = Company(symbol=symbol, source=self.SOURCE)
             dividends = company.dividends()
-            return dividends.to_dict(orient='records')
+            return dividends.to_dict(orient="records")
         except Exception as e:
             logger.error(f"Error getting dividends for {symbol} from VCI: {e}")
-            raise 
+            raise

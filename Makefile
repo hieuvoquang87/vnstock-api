@@ -2,28 +2,26 @@
 
 # Setup development environment
 setup:
-	pip install poetry
-	poetry install
-	poetry env activate
-	poetry export -f requirements.txt --output requirements.txt --without-hashes
+	pip install uv
+	uv pip install -r pyproject.toml
 
 # Run development server
 dev:
-	uvicorn app.main:app --reload --port 8000
+	uv run uvicorn app.main:app --reload --port 8000
 
 # Run tests
 test:
-	pytest -v
+	uv run pytest -v
 
 # Check code with linters
 lint:
-	flake8 app tests
-	mypy app tests
+	uv run flake8 app tests
+	uv run mypy app tests
 
 # Format code
 format:
-	black app tests
-	isort app tests
+	uv run black app tests
+	uv run isort app tests
 
 # Clean up cache files
 clean:
@@ -33,11 +31,11 @@ clean:
 
 # Install dev dependencies (linting, formatting)
 dev-deps:
-	poetry add --group dev flake8 mypy black isort pytest-cov
+	uv add --group dev flake8 mypy black isort pytest-cov
 
 # Run API with production settings
 prod:
-	uvicorn app.main:app --host 0.0.0.0 --port 8000
+	uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 # Create application directories
 dirs:

@@ -1,6 +1,6 @@
-from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Any
 import logging
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 SOURCE_TCBS = "tcbs"
 SOURCE_VCI = "vci"
 SOURCE_UNIFIED = "unified"
+
 
 class CompanyDataSource(ABC):
     """Abstract interface for company data sources"""
@@ -58,6 +59,7 @@ class CompanyDataSource(ABC):
         """Get dividend history"""
         pass
 
+
 class FinancialDataSource(ABC):
     """Abstract interface for financial data sources"""
 
@@ -69,7 +71,7 @@ class FinancialDataSource(ABC):
         lang: str = "vi",
         dropna: bool = True,
         to_df: bool = True,
-        show_log: bool = False
+        show_log: bool = False,
     ) -> Dict:
         """Get balance sheet data"""
         pass
@@ -82,7 +84,7 @@ class FinancialDataSource(ABC):
         lang: str = "vi",
         dropna: bool = True,
         to_df: bool = True,
-        show_log: bool = False
+        show_log: bool = False,
     ) -> Dict:
         """Get income statement data"""
         pass
@@ -94,7 +96,7 @@ class FinancialDataSource(ABC):
         period: str = "year",
         dropna: bool = True,
         to_df: bool = True,
-        show_log: bool = False
+        show_log: bool = False,
     ) -> Dict:
         """Get cash flow data"""
         pass
@@ -107,10 +109,11 @@ class FinancialDataSource(ABC):
         lang: str = "vi",
         dropna: bool = True,
         to_df: bool = True,
-        show_log: bool = False
+        show_log: bool = False,
     ) -> Dict:
         """Get financial ratios data"""
         pass
+
 
 class ListingDataSource(ABC):
     """Abstract interface for listing data sources."""
@@ -120,54 +123,46 @@ class ListingDataSource(ABC):
         """Get list of all available symbols."""
         pass
 
-
     @abstractmethod
-    async def get_symbols_by_industries(self, 
-                                        show_log: bool = False) -> Dict:
+    async def get_symbols_by_industries(self, show_log: bool = False) -> Dict:
         """Get symbols grouped by industry."""
         pass
 
     @abstractmethod
-    async def get_symbols_by_exchange(self, 
-                                     show_log: bool = False) -> Dict:
+    async def get_symbols_by_exchange(self, show_log: bool = False) -> Dict:
         """Get symbols grouped by exchange."""
         pass
 
     @abstractmethod
-    async def get_symbols_by_group(self, group: str = 'VN30', 
-                                  show_log: bool = False) -> Dict:
+    async def get_symbols_by_group(self, group: str = "VN30", show_log: bool = False) -> Dict:
         """Get symbols in a specific group like VN30, HNX30, etc."""
         pass
 
     @abstractmethod
-    async def get_industries_icb(self, 
-                                show_log: bool = False) -> Dict:
+    async def get_industries_icb(self, show_log: bool = False) -> Dict:
         """Get industry classification benchmark data."""
         pass
 
     @abstractmethod
-    async def get_all_future_indices(self, 
-                                    show_log: bool = False) -> Dict:
+    async def get_all_future_indices(self, show_log: bool = False) -> Dict:
         """Get all future indices."""
         pass
 
     @abstractmethod
-    async def get_all_covered_warrant(self, 
-                                     show_log: bool = False) -> Dict:
+    async def get_all_covered_warrant(self, show_log: bool = False) -> Dict:
         """Get all covered warrants."""
         pass
 
     @abstractmethod
-    async def get_all_bonds(self, 
-                           show_log: bool = False) -> Dict:
+    async def get_all_bonds(self, show_log: bool = False) -> Dict:
         """Get all bonds."""
         pass
 
     @abstractmethod
-    async def get_all_government_bonds(self, 
-                                      show_log: bool = False) -> Dict:
+    async def get_all_government_bonds(self, show_log: bool = False) -> Dict:
         """Get all government bonds."""
         pass
+
 
 class DataSourceFactory:
     """Factory class for creating data source instances."""
@@ -175,11 +170,11 @@ class DataSourceFactory:
     @staticmethod
     def create_listing_datasource(source: str = "vci"):
         """Create a listing data source.
-        
+
         Args:
             source: The source type identifier (default: "vci").
                    Possible values: "vci", "tcbs", "msn".
-        
+
         Returns:
             An instance of a class implementing the ListingDataSource interface.
         """
@@ -187,10 +182,12 @@ class DataSourceFactory:
         if source == "vci":
             # Import here to avoid circular imports
             from app.datasources.vci.listing import VCIListingDataSource
+
             return VCIListingDataSource()
         elif source == "tcbs":
             # Import here to avoid circular imports
             from app.datasources.tcbs.listing import TCBSListingDataSource
+
             return TCBSListingDataSource()
         else:
             raise ValueError(f"Unsupported source: {source}")

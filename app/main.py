@@ -1,6 +1,7 @@
-from fastapi import FastAPI, APIRouter
-from fastapi.middleware.cors import CORSMiddleware
 import logging
+
+from fastapi import APIRouter, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.rest.v1 import v1_router
 
@@ -30,6 +31,7 @@ app.add_middleware(
 # Include routers
 app.include_router(v1_router, prefix="/api")
 
+
 # Root endpoint
 @app.get("/", tags=["Root"])
 async def root():
@@ -38,8 +40,9 @@ async def root():
         "documentation": "/docs",
     }
 
+
 # Run the app
 if __name__ == "__main__":
     import uvicorn
-    
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True) 
+
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

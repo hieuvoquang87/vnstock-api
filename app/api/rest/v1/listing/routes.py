@@ -1,8 +1,10 @@
-from fastapi import APIRouter, Depends, Query, Path, HTTPException
-from datetime import datetime
 import logging
+from datetime import datetime
+
+from fastapi import APIRouter, Depends, HTTPException, Path, Query
+
+from app.models.schemas.listing import ApiErrorResponse, ApiResponse, ResponseModel
 from app.services.listing_service import ListingService
-from app.models.schemas.listing import ApiResponse, ApiErrorResponse, ResponseModel
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -15,7 +17,10 @@ router = APIRouter(
     },
 )
 
-async def get_listing_service(source: str = Query("vci", description="Data source to use (vci, tcbs)")):
+
+async def get_listing_service(
+    source: str = Query("vci", description="Data source to use (vci, tcbs)")
+):
     """Dependency to get the listing service with the specified source."""
     try:
         return ListingService(source=source)
@@ -25,15 +30,14 @@ async def get_listing_service(source: str = Query("vci", description="Data sourc
         logger.error(f"Error creating listing service: {str(e)}")
         raise HTTPException(status_code=500, detail="Error creating listing service")
 
+
 @router.get(
     "/symbols",
     response_model=ApiResponse,
     summary="Get all symbols",
     description="Get a list of all available symbols including stock code, company name, exchange, industry, etc.",
 )
-async def get_all_symbols(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_all_symbols(service: ListingService = Depends(get_listing_service)):
     """Get all available symbols."""
     try:
         data = await service.get_all_symbols()
@@ -43,16 +47,14 @@ async def get_all_symbols(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_all_symbols: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/symbols/by-industry",
@@ -60,9 +62,7 @@ async def get_all_symbols(
     summary="Get symbols by industry",
     description="Get symbols organized by their respective industries.",
 )
-async def get_symbols_by_industries(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_symbols_by_industries(service: ListingService = Depends(get_listing_service)):
     """Get symbols grouped by industry."""
     try:
         data = await service.get_symbols_by_industries()
@@ -72,16 +72,14 @@ async def get_symbols_by_industries(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_symbols_by_industries: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/symbols/by-exchange",
@@ -89,9 +87,7 @@ async def get_symbols_by_industries(
     summary="Get symbols by exchange",
     description="Get symbols organized by their respective exchanges.",
 )
-async def get_symbols_by_exchange(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_symbols_by_exchange(service: ListingService = Depends(get_listing_service)):
     """Get symbols grouped by exchange."""
     try:
         data = await service.get_symbols_by_exchange()
@@ -101,16 +97,14 @@ async def get_symbols_by_exchange(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_symbols_by_exchange: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/symbols/by-group/{group}",
@@ -120,7 +114,7 @@ async def get_symbols_by_exchange(
 )
 async def get_symbols_by_group(
     group: str = Path(..., description="Group name (e.g., VN30, HNX30)"),
-    service: ListingService = Depends(get_listing_service)
+    service: ListingService = Depends(get_listing_service),
 ):
     """Get symbols in a specific group."""
     try:
@@ -132,16 +126,14 @@ async def get_symbols_by_group(
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
                 "group": group,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_symbols_by_group: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/industries/icb",
@@ -149,9 +141,7 @@ async def get_symbols_by_group(
     summary="Get industries ICB",
     description="Get industry classification benchmark data.",
 )
-async def get_industries_icb(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_industries_icb(service: ListingService = Depends(get_listing_service)):
     """Get industry classification benchmark data."""
     try:
         data = await service.get_industries_icb()
@@ -161,16 +151,14 @@ async def get_industries_icb(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_industries_icb: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/future-indices",
@@ -178,9 +166,7 @@ async def get_industries_icb(
     summary="Get all future indices",
     description="Get all available future indices.",
 )
-async def get_all_future_indices(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_all_future_indices(service: ListingService = Depends(get_listing_service)):
     """Get all future indices."""
     try:
         data = await service.get_all_future_indices()
@@ -190,16 +176,14 @@ async def get_all_future_indices(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_all_future_indices: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/covered-warrants",
@@ -207,9 +191,7 @@ async def get_all_future_indices(
     summary="Get all covered warrants",
     description="Get all available covered warrants.",
 )
-async def get_all_covered_warrant(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_all_covered_warrant(service: ListingService = Depends(get_listing_service)):
     """Get all covered warrants."""
     try:
         data = await service.get_all_covered_warrant()
@@ -219,16 +201,14 @@ async def get_all_covered_warrant(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_all_covered_warrant: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/bonds",
@@ -236,9 +216,7 @@ async def get_all_covered_warrant(
     summary="Get all bonds",
     description="Get all available bonds.",
 )
-async def get_all_bonds(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_all_bonds(service: ListingService = Depends(get_listing_service)):
     """Get all bonds."""
     try:
         data = await service.get_all_bonds()
@@ -248,16 +226,14 @@ async def get_all_bonds(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_all_bonds: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get(
     "/government-bonds",
@@ -265,9 +241,7 @@ async def get_all_bonds(
     summary="Get all government bonds",
     description="Get all available government bonds.",
 )
-async def get_all_government_bonds(
-    service: ListingService = Depends(get_listing_service)
-):
+async def get_all_government_bonds(service: ListingService = Depends(get_listing_service)):
     """Get all government bonds."""
     try:
         data = await service.get_all_government_bonds()
@@ -277,13 +251,10 @@ async def get_all_government_bonds(
                 "version": "1.0",
                 "timestamp": datetime.now().isoformat(),
                 "source": service.source,
-            }
+            },
         )
     except NotImplementedError as e:
-        raise HTTPException(
-            status_code=501, 
-            detail=f"Not implemented for this source: {str(e)}"
-        )
+        raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_all_government_bonds: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))

@@ -2,4 +2,4 @@
 
 from app.datasources.factory import DataSourceFactory
 
-__all__ = ['DataSourceFactory'] 
+__all__ = ["DataSourceFactory"]
