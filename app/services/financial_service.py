@@ -119,7 +119,11 @@ class FinancialService:
             return await self.data_source_factory.create_financial_datasource(
                 self.source
             ).get_cash_flow(
-                symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
+                symbol=symbol,
+                period=period,
+                dropna=dropna,
+                to_df=to_df,
+                show_log=show_log,
             )
         except Exception as e:
             logger.error(f"Error getting cash flow for {symbol}: {str(e)}")

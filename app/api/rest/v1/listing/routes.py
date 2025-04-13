@@ -3,7 +3,11 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Query
 
-from app.models.schemas.listing import ApiErrorResponse, ApiResponse, ResponseModel
+from app.models.schemas.listing import (
+    ApiErrorResponse,
+    ApiResponse,
+    ResponseModel,
+)
 from app.services.listing_service import ListingService
 
 # Set up logging
@@ -13,7 +17,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter(
     responses={
         404: {"model": ApiErrorResponse, "description": "Not found"},
-        500: {"model": ApiErrorResponse, "description": "Internal server error"},
+        500: {
+            "model": ApiErrorResponse,
+            "description": "Internal server error",
+        },
     },
 )
 
@@ -37,7 +44,9 @@ async def get_listing_service(
     summary="Get all symbols",
     description="Get a list of all available symbols including stock code, company name, exchange, industry, etc.",
 )
-async def get_all_symbols(service: ListingService = Depends(get_listing_service)):
+async def get_all_symbols(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get all available symbols."""
     try:
         data = await service.get_all_symbols()
@@ -62,7 +71,9 @@ async def get_all_symbols(service: ListingService = Depends(get_listing_service)
     summary="Get symbols by industry",
     description="Get symbols organized by their respective industries.",
 )
-async def get_symbols_by_industries(service: ListingService = Depends(get_listing_service)):
+async def get_symbols_by_industries(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get symbols grouped by industry."""
     try:
         data = await service.get_symbols_by_industries()
@@ -87,7 +98,9 @@ async def get_symbols_by_industries(service: ListingService = Depends(get_listin
     summary="Get symbols by exchange",
     description="Get symbols organized by their respective exchanges.",
 )
-async def get_symbols_by_exchange(service: ListingService = Depends(get_listing_service)):
+async def get_symbols_by_exchange(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get symbols grouped by exchange."""
     try:
         data = await service.get_symbols_by_exchange()
@@ -141,7 +154,9 @@ async def get_symbols_by_group(
     summary="Get industries ICB",
     description="Get industry classification benchmark data.",
 )
-async def get_industries_icb(service: ListingService = Depends(get_listing_service)):
+async def get_industries_icb(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get industry classification benchmark data."""
     try:
         data = await service.get_industries_icb()
@@ -166,7 +181,9 @@ async def get_industries_icb(service: ListingService = Depends(get_listing_servi
     summary="Get all future indices",
     description="Get all available future indices.",
 )
-async def get_all_future_indices(service: ListingService = Depends(get_listing_service)):
+async def get_all_future_indices(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get all future indices."""
     try:
         data = await service.get_all_future_indices()
@@ -191,7 +208,9 @@ async def get_all_future_indices(service: ListingService = Depends(get_listing_s
     summary="Get all covered warrants",
     description="Get all available covered warrants.",
 )
-async def get_all_covered_warrant(service: ListingService = Depends(get_listing_service)):
+async def get_all_covered_warrant(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get all covered warrants."""
     try:
         data = await service.get_all_covered_warrant()
@@ -241,7 +260,9 @@ async def get_all_bonds(service: ListingService = Depends(get_listing_service)):
     summary="Get all government bonds",
     description="Get all available government bonds.",
 )
-async def get_all_government_bonds(service: ListingService = Depends(get_listing_service)):
+async def get_all_government_bonds(
+    service: ListingService = Depends(get_listing_service),
+):
     """Get all government bonds."""
     try:
         data = await service.get_all_government_bonds()

@@ -14,7 +14,11 @@ class VNStockAPIException(HTTPException):
         super().__init__(
             status_code=status_code,
             detail={
-                "error": {"code": error_code or "INTERNAL_ERROR", "message": detail, "details": {}}
+                "error": {
+                    "code": error_code or "INTERNAL_ERROR",
+                    "message": detail,
+                    "details": {},
+                }
             },
             headers=headers,
         )

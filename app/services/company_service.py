@@ -3,7 +3,12 @@ import logging
 from functools import reduce
 from typing import Any, Dict, List, Optional
 
-from app.datasources.base import SOURCE_TCBS, SOURCE_UNIFIED, SOURCE_VCI, CompanyDataSource
+from app.datasources.base import (
+    SOURCE_TCBS,
+    SOURCE_UNIFIED,
+    SOURCE_VCI,
+    CompanyDataSource,
+)
 from app.datasources.factory import DataSourceFactory
 
 logger = logging.getLogger(__name__)
@@ -41,8 +46,8 @@ class CompanyService:
                 # Combine data
                 return self._unify_company_info(
                     {
-                        SOURCE_TCBS: tcbs_data if not isinstance(tcbs_data, Exception) else None,
-                        SOURCE_VCI: vci_data if not isinstance(vci_data, Exception) else None,
+                        SOURCE_TCBS: (tcbs_data if not isinstance(tcbs_data, Exception) else None),
+                        SOURCE_VCI: (vci_data if not isinstance(vci_data, Exception) else None),
                     }
                 )
             else:

@@ -45,7 +45,11 @@ class TCBSListingDataSource(ListingDataSource):
         """Search for symbols based on criteria from TCBS API."""
         try:
             df = self.listing.search_symbols(
-                query=query, exchange=exchange, industry=industry, to_df=True, show_log=show_log
+                query=query,
+                exchange=exchange,
+                industry=industry,
+                to_df=True,
+                show_log=show_log,
             )
             return self._convert_df_to_dict(df)
         except Exception as e:

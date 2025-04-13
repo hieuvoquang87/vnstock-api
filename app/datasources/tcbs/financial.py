@@ -30,7 +30,11 @@ class TCBSFinancialDataSource(FinancialDataSource):
         try:
             finance = Finance(symbol=symbol, source=self.SOURCE)
             result = finance.balance_sheet(
-                period=period, lang=lang, dropna=dropna, to_df=to_df, show_log=show_log
+                period=period,
+                lang=lang,
+                dropna=dropna,
+                to_df=to_df,
+                show_log=show_log,
             )
             return result.to_dict(orient="records")
         except Exception as e:
@@ -50,7 +54,11 @@ class TCBSFinancialDataSource(FinancialDataSource):
         try:
             finance = Finance(symbol=symbol, source=self.SOURCE)
             result = finance.income_statement(
-                period=period, lang=lang, dropna=dropna, to_df=to_df, show_log=show_log
+                period=period,
+                lang=lang,
+                dropna=dropna,
+                to_df=to_df,
+                show_log=show_log,
             )
             return result.to_dict(orient="records")
 
@@ -89,7 +97,11 @@ class TCBSFinancialDataSource(FinancialDataSource):
         try:
             finance = Finance(symbol=symbol, source=self.SOURCE)
             result = finance.ratio(
-                period=period, lang=lang, dropna=dropna, to_df=to_df, show_log=show_log
+                period=period,
+                lang=lang,
+                dropna=dropna,
+                to_df=to_df,
+                show_log=show_log,
             )
             return result.to_dict(orient="records")
 

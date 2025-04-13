@@ -5,6 +5,10 @@ from app.datasources.tcbs.listing import TCBSListingDataSource
 from .company import TcbsCompanyDataSource
 from .financial import TCBSFinancialDataSource
 
-__all__ = ["TcbsCompanyDataSource", "TCBSFinancialDataSource", "TCBSListingDataSource"]
+__all__ = [
+    "TcbsCompanyDataSource",
+    "TCBSFinancialDataSource",
+    "TCBSListingDataSource",
+]
 
 # TCBS DataSource package

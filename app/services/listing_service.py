@@ -42,7 +42,11 @@ class ListingService:
             records = [records] if records else []
             total_count = 1 if records else 0
 
-        return {"metadata": data.get("metadata", {}), "totalCount": total_count, "records": records}
+        return {
+            "metadata": data.get("metadata", {}),
+            "totalCount": total_count,
+            "records": records,
+        }
 
     async def get_all_symbols(self) -> Dict:
         """Get list of all available symbols.

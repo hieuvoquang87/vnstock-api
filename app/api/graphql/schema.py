@@ -56,10 +56,18 @@ class Query:
         """Return mock company officers data for development"""
         return [
             CompanyOfficer(
-                name="John Doe", position="CEO", age=45, nationality="Vietnamese", shares=100000
+                name="John Doe",
+                position="CEO",
+                age=45,
+                nationality="Vietnamese",
+                shares=100000,
             ),
             CompanyOfficer(
-                name="Jane Smith", position="CTO", age=40, nationality="Vietnamese", shares=80000
+                name="Jane Smith",
+                position="CTO",
+                age=40,
+                nationality="Vietnamese",
+                shares=80000,
             ),
         ]
 
@@ -68,10 +76,16 @@ class Query:
         """Return mock shareholders data for development"""
         return [
             Shareholder(
-                name="Investment Group A", shares=1000000, percentage=30.5, type="Organization"
+                name="Investment Group A",
+                shares=1000000,
+                percentage=30.5,
+                type="Organization",
             ),
             Shareholder(
-                name="Investment Group B", shares=800000, percentage=24.2, type="Organization"
+                name="Investment Group B",
+                shares=800000,
+                percentage=24.2,
+                type="Organization",
             ),
         ]
 
@@ -80,10 +94,18 @@ class Query:
         """Return mock insider trading data for development"""
         return [
             InsiderTrading(
-                date=datetime.now(), type="Buy", shares=10000, price=85.2, value=852000.0
+                date=datetime.now(),
+                type="Buy",
+                shares=10000,
+                price=85.2,
+                value=852000.0,
             ),
             InsiderTrading(
-                date=datetime.now(), type="Sell", shares=5000, price=86.4, value=432000.0
+                date=datetime.now(),
+                type="Sell",
+                shares=5000,
+                price=86.4,
+                value=432000.0,
             ),
         ]
 

@@ -17,11 +17,15 @@ class CompanyProfile(BaseModel):
     address: Optional[str] = Field(None, description="Company address")
     phone: Optional[str] = Field(None, description="Contact phone number")
     business_summary: Optional[str] = Field(
-        None, description="Summary of the company's business", alias="companyProfile"
+        None,
+        description="Summary of the company's business",
+        alias="companyProfile",
     )
     history: Optional[str] = Field(None, description="Company history", alias="historyDev")
     business_strategies: Optional[str] = Field(
-        None, description="Company business strategies", alias="businessStrategies"
+        None,
+        description="Company business strategies",
+        alias="businessStrategies",
     )
     business_risks: Optional[str] = Field(
         None, description="Company business risks", alias="businessRisk"

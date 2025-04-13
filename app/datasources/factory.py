@@ -50,25 +50,6 @@ class DataSourceFactory:
 
         return datasource_class()
 
-    def create_financial_datasource(self, source: str) -> FinancialDataSource:
-        """Create a financial data source
-
-        Args:
-            source: Data source identifier ("tcbs", "vci", or "unified")
-
-        Returns:
-            Financial data source instance
-        """
-        if source not in self._valid_sources:
-            logger.warning(f"Unknown data source '{source}', defaulting to '{SOURCE_TCBS}'")
-            source = SOURCE_TCBS
-
-        datasource_class = self._financial_datasources.get(source)
-        if not datasource_class:
-            raise ValueError(f"Unsupported data source: {source}")
-
-        return datasource_class()
-
     @classmethod
     def get_all_company_datasources(cls) -> Dict[str, CompanyDataSource]:
         """Get all available company data sources
@@ -79,7 +60,9 @@ class DataSourceFactory:
         return {name: source_class() for name, source_class in cls._company_datasources.items()}
 
     @staticmethod
-    def create_company_datasource(source: str = SOURCE_TCBS) -> CompanyDataSource:
+    def create_company_datasource(
+        source: str = SOURCE_TCBS,
+    ) -> CompanyDataSource:
         """Create a company data source based on the specified source type"""
         if source == SOURCE_TCBS:
             return TcbsCompanyDataSource()
@@ -89,7 +72,9 @@ class DataSourceFactory:
             raise ValueError(f"Unsupported data source: {source}")
 
     @staticmethod
-    def create_financial_datasource(source: str = SOURCE_TCBS) -> FinancialDataSource:
+    def create_financial_datasource(
+        source: str = SOURCE_TCBS,
+    ) -> FinancialDataSource:
         """Create a financial data source based on the specified source type"""
         if source == SOURCE_TCBS:
             return TCBSFinancialDataSource()

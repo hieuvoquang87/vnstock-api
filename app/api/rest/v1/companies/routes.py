@@ -15,7 +15,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter(
     responses={
         404: {"model": ApiErrorResponse, "description": "Not found"},
-        500: {"model": ApiErrorResponse, "description": "Internal server error"},
+        500: {
+            "model": ApiErrorResponse,
+            "description": "Internal server error",
+        },
     },
 )
 
@@ -62,7 +65,8 @@ async def get_company_info(
     except Exception as e:
         logger.error(f"Error in get_company_info for {symbol}: {str(e)}")
         raise HTTPException(
-            status_code=500, detail=f"Failed to retrieve company information: {str(e)}"
+            status_code=500,
+            detail=f"Failed to retrieve company information: {str(e)}",
         )
 
 
@@ -94,7 +98,10 @@ async def get_company_profile(
         raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_company_profile for {symbol}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to retrieve company profile: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to retrieve company profile: {str(e)}",
+        )
 
 
 @router.get(
@@ -126,7 +133,8 @@ async def get_company_officers(
     except Exception as e:
         logger.error(f"Error in get_company_officers for {symbol}: {str(e)}")
         raise HTTPException(
-            status_code=500, detail=f"Failed to retrieve company officers: {str(e)}"
+            status_code=500,
+            detail=f"Failed to retrieve company officers: {str(e)}",
         )
 
 
@@ -190,7 +198,8 @@ async def get_insider_trading(
     except Exception as e:
         logger.error(f"Error in get_insider_trading for {symbol}: {str(e)}")
         raise HTTPException(
-            status_code=500, detail=f"Failed to retrieve insider trading information: {str(e)}"
+            status_code=500,
+            detail=f"Failed to retrieve insider trading information: {str(e)}",
         )
 
 
@@ -253,7 +262,10 @@ async def get_company_events(
         raise HTTPException(status_code=501, detail=f"Not implemented for this source: {str(e)}")
     except Exception as e:
         logger.error(f"Error in get_company_events for {symbol}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Failed to retrieve company events: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to retrieve company events: {str(e)}",
+        )
 
 
 @router.get(

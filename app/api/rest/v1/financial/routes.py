@@ -15,7 +15,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter(
     responses={
         404: {"model": ApiErrorResponse, "description": "Not found"},
-        500: {"model": ApiErrorResponse, "description": "Internal server error"},
+        500: {
+            "model": ApiErrorResponse,
+            "description": "Internal server error",
+        },
     },
 )
 
@@ -50,7 +53,11 @@ async def get_balance_sheet(
     """Get balance sheet data for a company"""
     try:
         data = await service.get_balance_sheet(
-            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
+            symbol=symbol,
+            period=period,
+            dropna=dropna,
+            to_df=to_df,
+            show_log=show_log,
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -87,7 +94,11 @@ async def get_income_statement(
     """Get income statement data for a company"""
     try:
         data = await service.get_income_statement(
-            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
+            symbol=symbol,
+            period=period,
+            dropna=dropna,
+            to_df=to_df,
+            show_log=show_log,
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -126,7 +137,11 @@ async def get_cash_flow(
     """Get cash flow data for a company"""
     try:
         data = await service.get_cash_flow(
-            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
+            symbol=symbol,
+            period=period,
+            dropna=dropna,
+            to_df=to_df,
+            show_log=show_log,
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
@@ -163,7 +178,11 @@ async def get_ratios(
     """Get financial ratios data for a company"""
     try:
         data = await service.get_ratios(
-            symbol=symbol, period=period, dropna=dropna, to_df=to_df, show_log=show_log
+            symbol=symbol,
+            period=period,
+            dropna=dropna,
+            to_df=to_df,
+            show_log=show_log,
         )
         return ApiResponse(
             data={"records": data} if isinstance(data, list) else data,
