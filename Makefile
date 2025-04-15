@@ -3,6 +3,7 @@
 # Setup development environment
 setup:
 	pip install uv
+	uv venv
 	uv pip install -r pyproject.toml
 
 # Run development server
