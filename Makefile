@@ -11,7 +11,7 @@ dev:
 	uv run uvicorn app.main:app --reload --port 8000
 
 run-agent-web:
-	cd agents && adk web
+	cd agents && uv run adk web
 # Run tests
 test:
 	uv run pytest -v
