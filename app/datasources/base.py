@@ -10,6 +10,10 @@ SOURCE_TCBS = "tcbs"
 SOURCE_VCI = "vci"
 SOURCE_UNIFIED = "unified"
 
+from vnstock.common.data.data_explorer import Company
+
+# Alias insider_transactions to insider_deals for backward compatibility
+Company.insider_transactions = Company.insider_deals
 
 class CompanyDataSource(ABC):
     """Abstract interface for company data sources"""

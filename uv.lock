@@ -999,7 +999,7 @@ wheels = [
 
 [[package]]
 name = "vnstock"
-version = "3.2.2"
+version = "3.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
@@ -1011,12 +1011,13 @@ dependencies = [
     { name = "pydantic" },
     { name = "requests" },
     { name = "seaborn" },
+    { name = "tenacity" },
     { name = "vnai" },
     { name = "vnstock-ezchart" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/70/7e/a833721445aaa615cdec4bf03bfec7abcaf9c571da996bd33e6d466ba730/vnstock-3.2.2.tar.gz", hash = "sha256:3607e0868e0dc6671c9658b1d3f926a157164502c1ebd6f59f39b559d5efcf1a", size = 97947 }
+sdist = { url = "https://files.pythonhosted.org/packages/35/27/5bb776de386d5e813fc1ba8764d618c9a4cdd375b463156020759f7b46d6/vnstock-3.2.3.tar.gz", hash = "sha256:dc55b7039dfc2fb1f67c67899d6f88caa454a440615c9e104f14ee0f49f6a13d", size = 98363 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ea/1e/abe79f47d76e66c4547a16f680de6a5da2efca53b92ebc50cc02eec7ca8c/vnstock-3.2.2-py3-none-any.whl", hash = "sha256:41dadda6f135a2f2b29f2c5de4ed776f351bc1435a818dcd4cc732326e2aa5ea", size = 120646 },
+    { url = "https://files.pythonhosted.org/packages/c6/aa/cd81cd2a91389d14fd34fb3a293fff8ae63792ede5434b0849e4d011cf24/vnstock-3.2.3-py3-none-any.whl", hash = "sha256:7dee09ce12c973423f6c11fec472b04c5d7a4d24391ec0eb7404f97a8035600c", size = 120942 },
 ]
 
 [[package]]
@@ -1058,7 +1059,7 @@ requires-dist = [
     { name = "tenacity", specifier = ">=9.0.0,<10" },
     { name = "uvicorn", specifier = ">=0.34.0,<0.35.0" },
     { name = "vnai", specifier = ">=2.0.0,<3" },
-    { name = "vnstock", specifier = "==3.2.2" },
+    { name = "vnstock", specifier = "==3.2.3" },
 ]
 
 [package.metadata.requires-dev]
